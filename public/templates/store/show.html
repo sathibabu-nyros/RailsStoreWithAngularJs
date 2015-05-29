@@ -1,0 +1,175 @@
+
+
+  <div ng-include src="'/templates/store/_navbar.html'"></div>
+
+<div class="container"  >
+  <div class="row clearfix"  >
+    <div class="col-md-6 column" style="border: 1px solid #ccc;">
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+
+         <!-- main image -->
+      
+        <div class="easyzoom easyzoom--adjacent">
+        <a href="assets/3_zoom_4.jpg">
+          <img src="assets/3_standard_4.jpg" alt=""  style="margin-top:5px;border:5px solid #ddd; width: 100%;"/>
+        </a>
+      </div>   
+
+
+       <!--  <img src="http://lorempixel.com/400/300/sports/{{product.id - 5}}/" ng-model="mainImageUrl" alt="" style="margin-top:5px;border:5px solid #ddd; width: 100%;">
+        -->
+               
+        
+         <!-- main image -->
+      </div>
+      </div>
+      <br>
+
+      <!-- thubnails -->
+      <div class="row">  
+
+           <div class="col-sm-3 col-xs-6" ng-repeat="product in products | limitTo:4"><a  class="thumbnail"><img src="http://lorempixel.com/400/300/sports/{{product.id - 5}}/" alt="Image" class="img-responsive" ng-mouseover="setImage('http://lorempixel.com/400/300/sports/5/')" style="cursor:pointer;"></a>
+          </div>
+      </div>
+    </div>
+  <!-- thubnails -->
+
+    <!-- product information -->
+    <div class="col-md-6 column">
+      <h3 class="text-left text-primary">
+        {{product.name}}  <label style="float:right;color:green;"> {{product.cost | currency}}</label>
+      </h3>
+      <dl>
+        <dt>
+          {{product.description}}
+        </dt> 
+      </dl>
+      <!-- rating script -->
+   <!--  <h4>User Ratings</h4>
+     
+     <div ng-init="x = 5">
+      <rating value="x" max="max" state-on="'glyphicon-star'" state-off="'glyphicon-star-empty'"></rating> <b>(<i>Rate:</i> {{x}})</b>
+    </div>
+
+    
+
+
+    <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span> -->
+
+  <!--   <pre style="margin:15px 0;">Your Rate: <b>{{x}}</b></pre> -->
+
+    <button class="btn btn-sm btn-success" ng-click="" ng-disabled="isReadonly">AddToCart</button>
+  
+    <hr />
+
+  
+    </div>
+  </div>
+   <!-- product information -->
+
+  <br>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+       <a  class="list-group-item active">CUSTOMERS WHO VIEWED THIS PRODUCT ALSO VIEWED</a><br>
+   
+        
+   
+  
+
+    <div id="owl-demo">
+              
+      <div class="item"><img src="assets/3_thumbnail_1.jpg" alt="Owl Image" ></div>
+      <div class="item"><img src="assets/3_thumbnail_2.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_3.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_4.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_1.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_2.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_3.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_4.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_1.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_2.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_3.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_4.jpg" alt="Owl Image"></div>
+       <div class="item"><img src="assets/3_thumbnail_1.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_2.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_3.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_4.jpg" alt="Owl Image"></div>
+       <div class="item"><img src="assets/3_thumbnail_1.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_2.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_3.jpg" alt="Owl Image"></div>
+      <div class="item"><img src="assets/3_thumbnail_4.jpg" alt="Owl Image"></div>
+    
+    </div>
+
+
+     
+    
+     
+ 
+
+      
+    </div>
+  </div>
+ <br>
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <div class="list-group">
+         <a  class="list-group-item active">Product Information</a>
+        <div class="list-group-item">
+          Type <label style="float:right"> {{productinfo[0].Type}}</label>
+        </div>
+        <div class="list-group-item">
+         style Code  <label style="float:right"> {{productinfo[0].styleCode }}</label>
+        </div>
+        <div class="list-group-item">
+         Diameter  <label style="float:right"> {{productinfo[0].Diameter}}</label>
+        </div>    
+         <div class="list-group-item">
+         Weight  <label style="float:right"> {{productinfo[0].Weight}}</label>
+        </div>  
+         <div class="list-group-item">
+         Thickness  <label style="float:right"> {{productinfo[0].Thickness}}</label>
+        </div>     
+      </div>
+    </div>
+
+   
+  </div>
+</div>
+<style type="text/css">
+  #owl-demo .item{
+  margin: 3px;
+}
+#owl-demo .item img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.owl-page{
+  display:none !important;
+}
+
+</style>
+<script>
+    // Instantiate EasyZoom instances
+    var $easyzoom = $('.easyzoom').easyZoom();
+
+    $(document).ready(function() {
+ 
+  $("#owl-demo").owlCarousel({
+ 
+      autoPlay: 3000, //Set AutoPlay to 3 seconds
+ 
+      items : 7,
+      itemsDesktop : [1199,3],
+      itemsDesktopSmall : [979,3]
+ 
+  });
+ 
+});
+   
+  </script>
+
+
+

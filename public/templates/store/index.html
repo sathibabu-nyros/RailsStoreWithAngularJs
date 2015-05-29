@@ -1,0 +1,105 @@
+
+<div ng-include src="'/templates/store/_navbar.html'"></div>
+
+        <div class="container" ng-init="setuser()">
+    <div class="row clearfix">
+        <div class="col-md-8 column" style="border-right:1px solid #ddd">
+
+
+            <div class="page-header">
+                <h1>
+                    Product List 
+                </h1>
+            </div>
+
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                     <label for="exampleInputEmail1">Search Product </label> &nbsp;<input class="form-control"  type="text" ng-model="Query"/>&nbsp;&nbsp;&nbsp;
+                  
+                </div>    
+            </form>
+              <br>
+            <!-- product list display -->
+          
+            <div class="row">
+                <div class="col-md-4 animate"    ng-repeat="product in products | filter:Query | filter:Brandfilters | filter:priceRange | orderBy:'cost'" >
+                    <div class="thumbnail">
+                         <a  href="#store/{{product.id}}/show" >
+                        <img ng-src="http://lorempixel.com/400/300/sports/{{product.id - 5}}/" ng-show="true" />
+                        </a>
+                        <div class="caption">
+                            <h3>
+                               <a  href="#store/{{product.id}}/show">{{product.name}}</a>   
+                            </h3>
+                            <h5>Price: <label>&nbsp;{{product.cost | currency}}</label></h5>
+                            <label>Brand: {{product.brand}}</label> 
+                            <br>
+                             <!-- <button class="btn btn-sm btn-success" ng-click="addItem({{product.id}})" ng-disabled="isReadonly">AddToCart</button>  -->                       
+                           
+                        </div>
+                    </div>
+                </div>              
+            </div> 
+            <!-- product list display -->
+        </div>
+        <div class="col-md-4 column" style="margin-top:5px;">
+            <div class="list-group">
+                 <a href="#" class="list-group-item active">Search By Filter  </a>
+
+                <div class="list-group-item" >
+                    <label>PRICE</label>
+                   
+                </div>
+                <div class="list-group-item" >
+                 <!--   <input type="range"  min="100" max="200" step="10" ng-model="upper_price"/> -->
+                       <!-- <slider floor="0" ceiling="50" ng-model-low="lower_price" ng-model-high="upper_price"></slider> -->
+   
+                  
+                     <slider floor="100" ceiling="500" ng-model-low="lower_price" ng-model-high="upper_price"></slider> 
+                        Min-Price: <strong>{{ lower_price | currency}}</strong>
+                        &nbsp;
+                        Max-Price: <strong>{{upper_price | currency }}</strong>
+                </div>
+               
+                 <div class="list-group-item" >
+                    <label>BRAND</label>
+                </div>
+                <div class="list-group-item" >               
+                <a style="cursor:pointer" ng-click="Brandfilters = ''">All Brands</a>
+                
+                </div>
+    <div class="list-group-item" >               
+     <a style="cursor:pointer" ng-click="Brandfilters = 'Samsung'">Samsung</a>     
+    </div>
+    <div class="list-group-item" >               
+     <a style="cursor:pointer" ng-click="Brandfilters = 'Microsoft'">Microsoft</a>     
+    </div>
+    <div class="list-group-item" >               
+     <a style="cursor:pointer" ng-click="Brandfilters = 'Sony'">Sony</a>     
+    </div>
+    <div class="list-group-item" >               
+     <a style="cursor:pointer" ng-click="Brandfilters = 'Htc'">Htc</a>     
+    </div>
+    <div class="list-group-item" >               
+     <a style="cursor:pointer" ng-click="Brandfilters = 'Celkon'">Celkon</a>     
+    </div>
+                <!-- <div class="list-group-item" ng-repeat="product in products | unique: 'brand'" >
+            <a style="cursor:pointer"  ng-click="Brandfilters = 'product.brand'">{{product.brand}}</a>
+                </div>     -->   
+              
+            </div>
+           <!--   <div class="list-group">
+                 <a href="#" class="list-group-item active">Product List <label style="float:right">Sort By Cost</label> </a>
+
+                <div class="list-group-item" ng-repeat="product in products | orderBy:'Cost'" >
+                    <a href="#viewProduct/{{products.indexOf(product)}}">{{product.Name}}  <label style="float:right;color:green;">{{product.Cost | currency}}</label> </a>
+                </div>
+               
+              
+            </div> -->
+        </div>
+    </div>
+
+</div>
+
+

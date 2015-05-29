@@ -1,0 +1,28 @@
+<br/>
+<div class="row">
+    <div class="col-md-12">
+        <a class="btn btn-primary" href="#/products/new">Create a Products</a>
+        <h3 class="block">Products</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Brand</th>
+                <th>Cost</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+            <tr ng-hide="products.length" >
+                <td colspan="5">No products found, Please create one.</td>
+            </tr>
+            <tr ng-show="products.length" ng-repeat="product in products">
+                <td>{{product.name}}</td>
+                <td>{{product.brand}}</td>
+                <td>{{product.cost}}</td>
+                <td>{{product.description}}</td>
+                <td>
+                    <a href="#/products/{{product.id}}/edit">Edit</a> | <a href="" ng-click="deleteProduct(product.id)">Remove</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

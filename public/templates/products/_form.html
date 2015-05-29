@@ -1,0 +1,84 @@
+<div class="form-group" ng-class="{'has-error' : submitted && productForm.name.$invalid}">
+    <label class="control-label col-md-3">Product name <span class="required">* </span> </label>
+    <div class="col-md-4">
+        <input type="text" name="name" class="form-control" ng-model="product.name" required />
+    </div>
+    <p ng-show=" submitted && productForm.name.$invalid" class="help-block">Product name is required.</p>
+</div>
+<div class="form-group" ng-class="{'has-error' : submitted && productForm.brand.$invalid}">
+    <label class="control-label col-md-3">Brand <span class="required">* </span> </label>
+    <div class="col-md-4">
+        <input type="text" name="brand" class="form-control" ng-model="product.brand" required />
+    </div>
+    <p ng-show=" submitted && productForm.brand.$invalid" class="help-block">Brand is required.</p>
+</div>
+<div class="form-group" ng-class="{'has-error' : submitted && productForm.cost.$invalid}">
+    <label class="control-label col-md-3">cost <span class="required">* </span> </label>
+    <div class="col-md-4">
+        <input type="text" name="cost" class="form-control" ng-model="product.cost" required />
+    </div>
+    <p ng-show="submitted && productForm.cost.$error.required" class="help-block">cost is required.</p>
+    <p ng-show="submitted && productForm.cost.$error.cost" class="help-block">Enter valid cost</p>
+</div>
+<div class="form-group">
+    <label class="control-label col-md-3">Description </label>
+    <div class="col-md-4">
+        <input type="text" name="description" class="form-control" ng-model="product.description" />
+    </div>
+    <p ng-show="submitted && productForm.description.$invalid" class="help-block">description is required.</p>
+</div>
+
+<div class="form-group">
+    <label class="control-label col-md-3">Pictures<span class="required">* </span> </label>
+    <div class="col-md-4">
+        <input type="file"  name="file" accept="image/*" required>
+       
+    </div>
+   
+
+</div>
+<div class="input_fields">  
+</div>
+
+
+      <button class="add_field_button">Add More Images</button><br> 
+
+ <br>
+
+        <hr/>
+    </div>
+</div>
+<!-- <div class="form-group">
+    <div class="col-md-offset-12">
+        <a ng-click="addAddress()" class="btn btn-success btn-xs">+ Add address </a>
+    </div>
+</div> -->
+
+<div class="form-group">
+    <div class="pull-left">
+        <a class="btn btn-default" href="#/products"> Back</a>
+        <button type="submit" class="btn btn-primary"  ng-click="submitted=true">Submit</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append(' <div class="form-group"> <label class="control-label col-md-3">Pictures </label><div class="col-md-4"><input type="file" name="avatars[]" class = "form-control"/><a href="#" class="remove_field">Remove</a><br></div></div>'); //add input box
+        }
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').parent('div .form-group').remove(); x--;
+    })
+});
+</script>
