@@ -10,9 +10,9 @@
 
          <!-- main image -->
      
-    <img id="native"
-         ng-src="{{stdImageUrl}}"
-         data-zoom-image="images/1_zoom.jpg" style="margin-top:5px;border:5px solid #ddd; width: 100%;" />
+    <img id=""
+         ng-src="{{product.avatar_file_name}}" class="img-responsive"
+         data-zoom-image="images/1_zoom.jpg" style="margin-top:5px;border:5px solid #ddd;" />
 
       <!--   <div class="easyzoom easyzoom--adjacent">
         <a href="{{zoomImageUrl}}">
@@ -34,9 +34,7 @@
        
       <!-- thubnails -->
       <div class="row thumbnail2">  
-
-
-           <div class="col-sm-3 col-xs-6" ng-repeat="product in products | limitTo:4"><a  class="thumbnail"  data-standard="assets/products/standard_{{product.id}}.jpg"><img src="assets/products/{{product.id}}.jpg" alt="Image" class="img-responsive" ng-click="setImage(product.id)" style="cursor:pointer;"></a>
+           <div class="col-sm-3 col-xs-6" ng-repeat="images in products  | filter:product.brand | limitTo:4 "><a  class="thumbnail" ><img src="{{images.avatar_content_type}}" alt="Image" class="img-responsive" ng-click="setImage(product.id)" style="cursor:pointer;"></a>
           </div>
       </div>
     </div>

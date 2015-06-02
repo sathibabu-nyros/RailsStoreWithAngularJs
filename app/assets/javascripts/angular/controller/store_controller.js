@@ -52,7 +52,7 @@ $scope.products = [];
                 angular.forEach(data,function (key) {
                     $scope.products.push(key);                                  
                 });      
-                $scope.stopLoadingData = ($scope.products.length === $scope.totalItems);
+                //$scope.stopLoadingData = ($scope.products.length === $scope.totalItems);
                 $scope.startList += 1;
             });
        
