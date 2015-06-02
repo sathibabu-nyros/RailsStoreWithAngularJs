@@ -29,7 +29,7 @@ myApp.controller("ProductListCtr", ['$scope', '$http', '$resource', 'Products', 
   };
 }]);
 
-myApp.controller("ProductUpdateCtr", ['$scope', '$resource', 'Product', '$location', '$routeParams', function($scope, $resource, Product, $location, $routeParams) {
+myApp.controller("ProductUpdateCtr", ['$scope', '$resource', 'Product', '$location', '$routeParams','Upload', function($scope, $resource, Product, $location, $routeParams, Upload) {
   $scope.product = Product.get({id: $routeParams.id})
   $scope.update = function(){
     if ($scope.productForm.$valid){
@@ -41,11 +41,28 @@ myApp.controller("ProductUpdateCtr", ['$scope', '$resource', 'Product', '$locati
     }
   };
   
- 
+ $scope.upload = function (files) {     
+        if (files && files.length) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                Upload.upload({
+                    method: 'PUT',
+                    url: '/products/'+$routeParams.id+'',
+                     fields: { 'product[name]': $scope.product.name,
+                               'product[cost]': $scope.product.cost,
+                               'product[brand]': $scope.product.brand,
+                               'product[description]': $scope.product.description
+                             },
+                    file: file,
+                    fileFormDataName: 'product[avatar]'                    
+                });
+            }
+        }
+    };
 
 }]);
 
-myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location', function($scope, $resource, Products,  $location) {
+myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location','Upload', function($scope, $resource, Products,  $location, Upload) {
  // $scope.avatars = {};
   $scope.product = {};
 
@@ -75,7 +92,23 @@ myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location
   };
 
  
-
+    $scope.upload = function (files) {     
+        if (files && files.length) {
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                Upload.upload({
+                    url: '/products',
+                     fields: { 'product[name]': $scope.product.name,
+                               'product[cost]': $scope.product.cost,
+                               'product[brand]': $scope.product.brand,
+                               'product[description]': $scope.product.description
+                             },
+                    file: file,
+                    fileFormDataName: 'product[avatar]'                    
+                });
+            }
+        }
+    };
   
 
 }]);

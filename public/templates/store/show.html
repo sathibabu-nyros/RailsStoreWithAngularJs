@@ -9,13 +9,19 @@
         <div class="col-md-12 column">
 
          <!-- main image -->
-      
-        <div class="easyzoom easyzoom--adjacent">
-        <a href="assets/3_zoom_4.jpg">
-          <img src="assets/3_standard_4.jpg" alt=""  style="margin-top:5px;border:5px solid #ddd; width: 100%;"/>
-        </a>
-      </div>   
+     
+    <img id="native"
+         ng-src="{{stdImageUrl}}"
+         data-zoom-image="images/1_zoom.jpg" style="margin-top:5px;border:5px solid #ddd; width: 100%;" />
 
+      <!--   <div class="easyzoom easyzoom--adjacent">
+        <a href="{{zoomImageUrl}}">
+          <img src="{{stdImageUrl}}" alt=""  style="margin-top:5px;border:5px solid #ddd; width: 100%;"/>
+        </a>
+      </div>   --> 
+<!--   <a href="http://s27.postimg.org/v5h4f601v/blue_bird_wallpaper.jpg" class="cloud-zoom" rel="adjustX: 5, adjustY:-8">
+    <img src="http://s27.postimg.org/xyoknslhf/blue_bird_wallpaper_small.jpg" style="margin-top:5px;border:5px solid #ddd; width: 100%;"/>
+  </a> -->
 
        <!--  <img src="http://lorempixel.com/400/300/sports/{{product.id - 5}}/" ng-model="mainImageUrl" alt="" style="margin-top:5px;border:5px solid #ddd; width: 100%;">
         -->
@@ -25,11 +31,12 @@
       </div>
       </div>
       <br>
-
+       
       <!-- thubnails -->
-      <div class="row">  
+      <div class="row thumbnail2">  
 
-           <div class="col-sm-3 col-xs-6" ng-repeat="product in products | limitTo:4"><a  class="thumbnail"><img src="http://lorempixel.com/400/300/sports/{{product.id - 5}}/" alt="Image" class="img-responsive" ng-mouseover="setImage('http://lorempixel.com/400/300/sports/5/')" style="cursor:pointer;"></a>
+
+           <div class="col-sm-3 col-xs-6" ng-repeat="product in products | limitTo:4"><a  class="thumbnail"  data-standard="assets/products/standard_{{product.id}}.jpg"><img src="assets/products/{{product.id}}.jpg" alt="Image" class="img-responsive" ng-click="setImage(product.id)" style="cursor:pointer;"></a>
           </div>
       </div>
     </div>
@@ -78,27 +85,7 @@
   
 
     <div id="owl-demo">
-              
-      <div class="item"><img src="assets/3_thumbnail_1.jpg" alt="Owl Image" ></div>
-      <div class="item"><img src="assets/3_thumbnail_2.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_3.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_4.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_1.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_2.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_3.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_4.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_1.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_2.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_3.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_4.jpg" alt="Owl Image"></div>
-       <div class="item"><img src="assets/3_thumbnail_1.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_2.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_3.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_4.jpg" alt="Owl Image"></div>
-       <div class="item"><img src="assets/3_thumbnail_1.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_2.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_3.jpg" alt="Owl Image"></div>
-      <div class="item"><img src="assets/3_thumbnail_4.jpg" alt="Owl Image"></div>
+           
     
     </div>
 
@@ -152,23 +139,13 @@
 
 </style>
 <script>
-    // Instantiate EasyZoom instances
-    var $easyzoom = $('.easyzoom').easyZoom();
 
-    $(document).ready(function() {
- 
-  $("#owl-demo").owlCarousel({
- 
-      autoPlay: 3000, //Set AutoPlay to 3 seconds
- 
-      items : 7,
-      itemsDesktop : [1199,3],
-      itemsDesktopSmall : [979,3]
- 
-  });
- 
+$( document ).ready(function() {
+    $('#native').elevateZoom({ 
+      zoomWindowWidth:500, zoomWindowHeight:400,scrollZoom : true,easing : true ,zoomWindowPosition: 1, zoomWindowOffetx: 10 });
 });
-   
+
+
   </script>
 
 

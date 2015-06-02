@@ -20,12 +20,12 @@
             </form>
               <br>
             <!-- product list display -->
-          
-            <div class="row">
-                <div class="col-md-4 animate"    ng-repeat="product in products | filter:Query | filter:Brandfilters | filter:priceRange | orderBy:'cost'" >
+            
+            <div class="row load"  when-scrolled="loadMore()">
+                <div class="col-md-4 animate"    ng-repeat="product in products | filter:Query | filter:Brandfilters | filter:priceRange | orderBy:'cost' " >
                     <div class="thumbnail">
                          <a  href="#store/{{product.id}}/show" >
-                        <img ng-src="http://lorempixel.com/400/300/sports/{{product.id - 5}}/" ng-show="true" />
+                        <img ng-src="{{product.avatar_content_type}}" ng-show="true" style="height:120px"/>
                         </a>
                         <div class="caption">
                             <h3>
@@ -38,7 +38,8 @@
                            
                         </div>
                     </div>
-                </div>              
+                </div>  
+                         
             </div> 
             <!-- product list display -->
         </div>

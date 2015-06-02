@@ -3,7 +3,11 @@ class ProductsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @products = Product.all
+    @products = Product.all   
+    @products = Product.paginate(:page => params[:page], :per_page => 9) if params[:page].present?
+     @products.each do |product|
+      product[:avatar_content_type] = product.avatar.url(:medium)     
+    end
     respond_with(@products) do |format|
       format.json { render :json => @products.as_json }
       format.html
@@ -12,15 +16,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    if @product.save
-
-          if params[:avatars]
-            #===== The magic is here ;)
-            params[:avatars].each { |image|
-              @product.product_pictures.create(avatar: image)
-            }
-          end
-
+    if @product.save        
       render json: @product.as_json, status: :ok
     else
       render json: {product: @product.errors, status: :no_content}
@@ -28,22 +24,17 @@ class ProductsController < ApplicationController
   end      
 
   def show
-  	@product = Product.find(params[:id])
+  	@product = Product.find(params[:id])     
+    @product[:avatar_content_type] = @product.avatar.url(:thumb)
+    @product[:avatar_file_name] = @product.avatar.url
     respond_with(@product.as_json)
   end
 
   def update
   	@product = Product.find(params[:id])
+    @product[:avatar_content_type] = @product.avatar.url(:thumb)
+    @product[:avatar_file_name] = @product.avatar.url
     if @product.update_attributes(product_params)
-
-
-          if params[:avatars]
-            puts "#===== The magic is here"
-            params[:avatars].each { |image|
-              @product.product_pictures.create(avatar: image)
-            }
-          end
-
       render json: @product.as_json, status: :ok 
     else
       render json: {product: @product.errors, status: :unprocessable_entity}
@@ -60,7 +51,7 @@ class ProductsController < ApplicationController
 
   def product_params
    
-    params.fetch(:product, {}).permit(:name, :cost, :brand, :description,:avatar)
+    params.fetch(:product, {}).permit(:name, :cost, :brand, :description, :avatar)
   end
 
   def get_product

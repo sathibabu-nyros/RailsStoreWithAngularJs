@@ -29,19 +29,29 @@
 </div>
 
 <div class="form-group">
-    <label class="control-label col-md-3">Pictures<span class="required">* </span> </label>
+    <label class="control-label col-md-3">Image </label>
     <div class="col-md-4">
-        <input type="file"  name="file" accept="image/*" required>
-       
+
+      <img ng-src="{{product.avatar_file_name}}">
     </div>
    
+</div>
 
+<div class="form-group" ng-show="product.id">
+    <label class="control-label col-md-3">Pictures<span class="required">* </span> </label>
+   <!--  <div class="col-md-4">
+        <input type="file"  name="file"  ng-model="file" >
+       
+    </div> -->
+    <div class="col-md-4">
+   <div class="button" ngf-select ngf-change="upload($files)" ngf-multiple="multiple" multiple="true" style="cursor:pointer;">Select File</div>
+ </div>
 </div>
 <div class="input_fields">  
 </div>
 
 
-      <button class="add_field_button">Add More Images</button><br> 
+      <!-- <button class="add_field_button">Add More Images</button><br>  -->
 
  <br>
 
@@ -60,6 +70,19 @@
         <button type="submit" class="btn btn-primary"  ng-click="submitted=true">Submit</button>
     </div>
 </div>
+<style type="text/css">
+    
+    .button {
+    -moz-appearance: button;
+    /* Firefox */
+    -webkit-appearance: button;
+    /* Safari and Chrome */
+    margin: 0;
+    padding: 2px;
+    width: 76px;
+}
+
+</style>
 
 <script type="text/javascript">
 

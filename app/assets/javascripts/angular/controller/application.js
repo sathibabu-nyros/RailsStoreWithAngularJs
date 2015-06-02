@@ -1,4 +1,4 @@
-var myApp = angular.module('myapplication', ['ngRoute', 'ngResource','uiSlider']); 
+var myApp = angular.module('myapplication', ['ngRoute', 'ngResource','uiSlider','ngFileUpload']); 
 
 //Routes
 myApp.config([
