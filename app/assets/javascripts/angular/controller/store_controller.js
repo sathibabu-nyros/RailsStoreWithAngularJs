@@ -15,7 +15,7 @@ myApp.factory('Products', ['$resource',function($resource){
 // }]);
 
 //Controller
-myApp.controller("StoreListCtr", ['$scope', '$http', '$resource', 'Products', 'Product', '$location', function($scope, $http, $resource, Products, Product, $location) {
+myApp.controller("StoreListCtr", ['$scope', '$http', '$resource', 'Products', 'Product', '$location','$timeout', function($scope, $http, $resource, Products, Product, $location,$timeout) {
 
   
 $scope.products = [];
@@ -46,17 +46,19 @@ $scope.products = [];
 
     $scope.loadMore = function () {
        
-            $scope.loading = true;
-            $http.get("/products.json?page="+$scope.startList+"").success(function (data) {
+            //$scope.loading = true;
+
+            $timeout(function(){
+                 $http.get("/products.json?page="+$scope.startList+"").success(function (data) {
                 $scope.totalItems=data.length;               
                 angular.forEach(data,function (key) {
                     $scope.products.push(key);                                  
                 });      
                 //$scope.stopLoadingData = ($scope.products.length === $scope.totalItems);
                 $scope.startList += 1;
-            });
-       
-        $scope.loading = false;
+            });                 
+             $scope.loading = false;
+            }, 300);  
     };
 
    
@@ -82,20 +84,33 @@ $scope.products = [];
 
 
 
-myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', '$location', '$routeParams', function($scope, $resource, Product, Products,$location, $routeParams) {
+myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', '$location', '$routeParams','$http', function($scope, $resource, Product, Products,$location, $routeParams, $http) {
   $scope.product = Product.get({id: $routeParams.id})
   $scope.products = Products.query();
- 
-   $scope.stdImageUrl = 'assets/products/standard_'+ $routeParams.id +'.jpg';
+
+  // $scope.stdImageUrl = 'assets/products/standard_'+ $routeParams.id +'.jpg';
    $scope.zoomImageUrl = 'images/products/zoom_'+ $routeParams.id +'.jpg';
 
-   $scope.setImage = function(id) {
+   $scope.stdImageUrl = '';
+   $scope.show = true;
+
+   $scope.productimages = [];
+  
+   $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
+                $scope.totalItems=data.length;               
+                angular.forEach(data,function (key) {
+                    $scope.productimages.push(key);                                  
+                });
+              });   
+
+
+   $scope.setImage = function(images) {
  
     //$('#mainimg').attr('src','');
     //$scope.mainImageUrl = imageUrl;
-
-   $scope.stdImageUrl = 'assets/products/standard_'+ id +'.jpg';
-   $scope.zoomImageUrl = 'localhost/images/products/zoom_'+ id +'.jpg';
+   $scope.show = false;
+   $scope.stdImageUrl = images;
+   //$scope.zoomImageUrl = 'localhost/images/products/zoom_'+ id +'.jpg';
    
 
     }
@@ -126,4 +141,10 @@ myApp.directive('whenScrolled', function() {
             
         });
     };
+});
+
+ myApp.filter('slice', function() {
+  return function(arr, start, end) {
+    return arr.slice(start, end);
+  };
 });

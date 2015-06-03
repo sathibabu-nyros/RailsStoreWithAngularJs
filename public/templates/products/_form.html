@@ -28,16 +28,21 @@
     <p ng-show="submitted && productForm.description.$invalid" class="help-block">description is required.</p>
 </div>
 
-<div class="form-group">
+<div class="form-group" >
     <label class="control-label col-md-3">Image </label>
     <div class="col-md-4">
 
       <img ng-src="{{product.avatar_file_name}}">
+
+    <div ng-repeat="images in productimages" ng-show="productimages">
+    <img ng-src="{{images}}" style="float:left;">    
+    </div>
+
     </div>
    
 </div>
 
-<div class="form-group" ng-show="product.id">
+<div class="form-group" >
     <label class="control-label col-md-3">Pictures<span class="required">* </span> </label>
    <!--  <div class="col-md-4">
         <input type="file"  name="file"  ng-model="file" >

@@ -29,8 +29,19 @@ myApp.controller("ProductListCtr", ['$scope', '$http', '$resource', 'Products', 
   };
 }]);
 
-myApp.controller("ProductUpdateCtr", ['$scope', '$resource', 'Product', '$location', '$routeParams','Upload', function($scope, $resource, Product, $location, $routeParams, Upload) {
+myApp.controller("ProductUpdateCtr", ['$scope', '$resource', 'Product', '$location', '$routeParams','Upload','$http', function($scope, $resource, Product, $location, $routeParams, Upload,$http) {
+
   $scope.product = Product.get({id: $routeParams.id})
+  //load product images
+  $scope.productimages = [];
+  
+   $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
+                $scope.totalItems=data.length;               
+                angular.forEach(data,function (key) {
+                    $scope.productimages.push(key);                                  
+                });
+                  });      
+
   $scope.update = function(){
     if ($scope.productForm.$valid){
       Product.update({id: $scope.product.id},{product: $scope.product},function(){
@@ -47,22 +58,27 @@ myApp.controller("ProductUpdateCtr", ['$scope', '$resource', 'Product', '$locati
                 var file = files[i];
                 Upload.upload({
                     method: 'PUT',
-                    url: '/products/'+$routeParams.id+'',
-                     fields: { 'product[name]': $scope.product.name,
-                               'product[cost]': $scope.product.cost,
-                               'product[brand]': $scope.product.brand,
-                               'product[description]': $scope.product.description
-                             },
+                    url: '/products/'+$routeParams.id+'/upload_images/',                     
                     file: file,
-                    fileFormDataName: 'product[avatar]'                    
+                    fileFormDataName: 'avatar'                    
                 });
             }
+            $location.path('/products/'+$routeParams.id+'/edit');
+            $scope.productimages = [];
+  
+          $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
+                      $scope.totalItems=data.length;               
+                      angular.forEach(data,function (key) {
+                          $scope.productimages.push(key);                                  
+                      });
+                    }); 
         }
+
     };
 
 }]);
 
-myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location','Upload', function($scope, $resource, Products,  $location, Upload) {
+myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location','Upload','$http', function($scope, $resource, Products,  $location, Upload, $http) {
  // $scope.avatars = {};
   $scope.product = {};
 
@@ -92,7 +108,9 @@ myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location
   };
 
  
-    $scope.upload = function (files) {     
+   
+    
+     $scope.upload = function (files) {     
         if (files && files.length) {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -109,7 +127,6 @@ myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location
             }
         }
     };
-  
 
 }]);
 

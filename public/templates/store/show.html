@@ -9,10 +9,13 @@
         <div class="col-md-12 column">
 
          <!-- main image -->
-     
-    <img id=""
-         ng-src="{{product.avatar_file_name}}" class="img-responsive"
-         data-zoom-image="images/1_zoom.jpg" style="margin-top:5px;border:5px solid #ddd;" />
+
+       
+  <div ng-show="{{show}}">
+    <img   ng-src="{{stdImageUrl}}" class="img-responsive" style="margin-top:5px;border:5px solid #ddd;" />
+  </div>
+
+  
 
       <!--   <div class="easyzoom easyzoom--adjacent">
         <a href="{{zoomImageUrl}}">
@@ -31,10 +34,10 @@
       </div>
       </div>
       <br>
-       
+     
       <!-- thubnails -->
       <div class="row thumbnail2">  
-           <div class="col-sm-3 col-xs-6" ng-repeat="images in products  | filter:product.brand | limitTo:4 "><a  class="thumbnail" ><img src="{{images.avatar_content_type}}" alt="Image" class="img-responsive" ng-click="setImage(product.id)" style="cursor:pointer;"></a>
+           <div class="col-sm-3 col-xs-6" ng-repeat="images in productimages | slice:1:5"><a  class="thumbnail" ><img src="{{images}}" alt="Image" class="img-responsive" ng-click="setImage(images)" style="cursor:pointer;"></a>
           </div>
       </div>
     </div>
@@ -78,12 +81,58 @@
     <div class="col-md-12 column">
        <a  class="list-group-item active">CUSTOMERS WHO VIEWED THIS PRODUCT ALSO VIEWED</a><br>
    
-        
-   
-  
+       <div id="owl-demo">
+              
+ 
+  <!-- <a href="" ng-repeat="image in products">
+    <div  class="item"><img src="{{image.avatar_content_type}}" alt="Owl Image"></div>
+  </a> -->
 
-    <div id="owl-demo">
-           
+       
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+        <div class="item" ><a href="" >
+        <img  src="{{product.avatar_content_type}}" alt="Owl Image"></a></div>
+
+     
     
     </div>
 
@@ -123,10 +172,10 @@
   </div>
 </div>
 <style type="text/css">
-  #owl-demo .item{
-  margin: 3px;
+  #owl-demo .item .ng-scope{
+  margin: 0px;
 }
-#owl-demo .item img{
+#owl-demo .item .ng-scope img{
   display: block;
   width: 100%;
   height: auto;
@@ -140,9 +189,23 @@
 
 $( document ).ready(function() {
     $('#native').elevateZoom({ 
-      zoomWindowWidth:500, zoomWindowHeight:400,scrollZoom : true,easing : true ,zoomWindowPosition: 1, zoomWindowOffetx: 10 });
+      zoomWindowWidth:300, zoomWindowHeight:200,scrollZoom : true,easing : true ,zoomWindowPosition: 1, zoomWindowOffetx: 10 });
 });
 
+
+  $(document).ready(function() {
+ 
+  $("#owl-demo").owlCarousel({
+ 
+      autoPlay: 3000, //Set AutoPlay to 3 seconds
+ 
+      items : 7,
+      itemsDesktop : [1199,3],
+      itemsDesktopSmall : [979,3]
+ 
+  });
+
+});
 
   </script>
 

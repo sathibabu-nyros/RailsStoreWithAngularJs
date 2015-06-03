@@ -4,9 +4,10 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all   
-    @products = Product.paginate(:page => params[:page], :per_page => 5) if params[:page].present?
+    @products = Product.paginate(:page => params[:page], :per_page => 6) if params[:page].present?
      @products.each do |product|
-      product[:avatar_content_type] = product.avatar.url(:medium)     
+      product[:avatar_content_type] = product.avatar.url(:medium) 
+      product[:avatar_file_name] = product.avatar.url(:thumb)   
     end
     respond_with(@products) do |format|
       format.json { render :json => @products.as_json }
@@ -16,7 +17,7 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    if @product.save        
+    if @product.save 
       render json: @product.as_json, status: :ok
     else
       render json: {product: @product.errors, status: :no_content}
@@ -24,16 +25,31 @@ class ProductsController < ApplicationController
   end      
 
   def show
-  	@product = Product.find(params[:id])     
+      @product = Product.find(params[:id]) 
     @product[:avatar_content_type] = @product.avatar.url(:thumb)
-    @product[:avatar_file_name] = @product.avatar.url
+    @product[:avatar_file_name] = @product.avatar.url(:medium) 
+   # respond_with(@product.as_json)
     respond_with(@product.as_json)
   end
 
+  def image_show
+    @product = Product.find(params[:id]) 
+    length = ProductPictures.where(:product_id => @product.id).count
+    images = ProductPictures.where(:product_id => @product.id)
+    data = [];
+    if length > 
+      i=1
+      images.each do |image|       
+        data[i] =  image.avatar.url(:medium)       
+        i +=1  
+      end
+    end
+    respond_with(data.as_json)
+    
+  end
+
   def update
-  	@product = Product.find(params[:id])
-    @product[:avatar_content_type] = @product.avatar.url(:thumb)
-    @product[:avatar_file_name] = @product.avatar.url
+  	@product = Product.find(params[:id])   
     if @product.update_attributes(product_params)
       render json: @product.as_json, status: :ok 
     else
@@ -47,12 +63,21 @@ class ProductsController < ApplicationController
     render json: {status: :ok}
   end
 
+  def upload_images
+    @product = Product.find(params[:id])
+    product_picture = ProductPictures.create(:avatar => params[:avatar])
+    product_picture[:product_id] = @product.id
+    product_picture.save
+    render json: {status: :ok}
+  end
+
  private
 
-  def product_params
-   
+  def product_params   
     params.fetch(:product, {}).permit(:name, :cost, :brand, :description, :avatar)
   end
+
+  
 
   def get_product
     @product = Product.find(params[:id])

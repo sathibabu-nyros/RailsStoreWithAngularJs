@@ -22,7 +22,7 @@
             <!-- product list display -->
             
             <div class="row load"  when-scrolled="loadMore()">
-                <div class="col-md-4 animate"    ng-repeat="product in products | filter:Query | filter:Brandfilters | filter:priceRange | orderBy:'cost' " >
+                <div class="col-md-4 animate"    ng-repeat="product in products | filter:Query | filter:Brandfilters | filter:priceRange" >
                     <div class="thumbnail">
                          <a  href="#store/{{product.id}}/show" >
                         <img ng-src="{{product.avatar_content_type}}" ng-show="true" style="height:120px"/>
@@ -39,8 +39,19 @@
                         </div>
                     </div>
                 </div>  
-                         
+                      <div ng-show="loading"><img  class="loader" src="/images/support-loading.gif"></div>  
+                    <style type="text/css">
+                    .loader{
+                     
+                      background-repeat: no-repeat;                      
+                      z-index: 999;
+                      width:50px;
+                      height: 50px;                     
+
+                    }
+                    </style>   
             </div> 
+          
             <!-- product list display -->
         </div>
         <div class="col-md-4 column" style="margin-top:5px;">

@@ -15,5 +15,7 @@
 //= require angular-route
 //= require angular-resource
 //= require angular-ui-bootstrap
+//= require turbolinks
+//= require owl.carousel
 //= require_tree .
 
