@@ -25,9 +25,9 @@ class ProductsController < ApplicationController
   end      
 
   def show
-      @product = Product.find(params[:id]) 
-    @product[:avatar_content_type] = @product.avatar.url(:thumb)
-    @product[:avatar_file_name] = @product.avatar.url(:medium) 
+    @product = Product.find(params[:id]) 
+    @product[:avatar_content_type] = @product.avatar.url(:medium)
+    @product[:avatar_file_name] = @product.avatar.url
    # respond_with(@product.as_json)
     respond_with(@product.as_json)
   end
@@ -41,6 +41,22 @@ class ProductsController < ApplicationController
       i=1
       images.each do |image|       
         data[i] =  image.avatar.url(:medium)       
+        i +=1  
+      end
+    end
+    respond_with(data.as_json)
+    
+  end
+
+  def originalimage_show
+    @product = Product.find(params[:id]) 
+    length = ProductPictures.where(:product_id => @product.id).count
+    images = ProductPictures.where(:product_id => @product.id)
+    data = [];
+    if length > 
+      i=1
+      images.each do |image|       
+        data[i] =  image.avatar.url   
         i +=1  
       end
     end

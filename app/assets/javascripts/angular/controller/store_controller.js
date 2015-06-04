@@ -46,7 +46,7 @@ $scope.products = [];
 
     $scope.loadMore = function () {
        
-            //$scope.loading = true;
+            $scope.loading = true;
 
             $timeout(function(){
                  $http.get("/products.json?page="+$scope.startList+"").success(function (data) {
@@ -56,12 +56,18 @@ $scope.products = [];
                 });      
                 //$scope.stopLoadingData = ($scope.products.length === $scope.totalItems);
                 $scope.startList += 1;
-            });                 
-             $scope.loading = false;
-            }, 300);  
+            }); 
+            if($scope.totalItems < 1){
+              $scope.loading = false;
+            } 
+            $timeout(function(){
+              $scope.loading = false;
+            },500);               
+             
+            }, 500);  
     };
 
-   
+
 
    $scope.loadMore();
  
@@ -86,14 +92,16 @@ $scope.products = [];
 
 myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', '$location', '$routeParams','$http', function($scope, $resource, Product, Products,$location, $routeParams, $http) {
   $scope.product = Product.get({id: $routeParams.id})
-  $scope.products = Products.query();
+  $scope.products = [];
 
   // $scope.stdImageUrl = 'assets/products/standard_'+ $routeParams.id +'.jpg';
-   $scope.zoomImageUrl = 'images/products/zoom_'+ $routeParams.id +'.jpg';
+  
 
    $scope.stdImageUrl = '';
-   $scope.show = true;
+   
 
+   $scope.productimages = [];
+   $scope.productimagesoriginal = [];
    $scope.productimages = [];
   
    $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
@@ -103,13 +111,27 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
                 });
               });   
 
+    $http.get('/products/'+$routeParams.id+'/originalimage_show.json').success(function (data) {
+                $scope.totalItems=data.length;               
+                angular.forEach(data,function (key) {
+                    $scope.productimagesoriginal.push(key);                                  
+                });
+              }); 
 
-   $scope.setImage = function(images) {
+     $http.get("/products.json?").success(function (data) {
+                $scope.totalItems=data.length;               
+                angular.forEach(data,function (key) {
+                    $scope.products.push(key);                                  
+                });    
+               });     
+
+   $scope.setImage = function(images,image) {
  
     //$('#mainimg').attr('src','');
     //$scope.mainImageUrl = imageUrl;
-   $scope.show = false;
-   $scope.stdImageUrl = images;
+   $scope.product.show = true;
+   $scope.stdImageUrl = image;
+   $scope.zoomImageUrl = images;
    //$scope.zoomImageUrl = 'localhost/images/products/zoom_'+ id +'.jpg';
    
 
@@ -119,15 +141,15 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
 
 }]);
 
-myApp.directive('ngElevateZoom', function() {
-  return {
-    restrict: 'A',
-    scope: true,
-    compile: function(scope, element, attrs) {
-      $(element).elevateZoom(scope.$eval(attrs.elevateZoom));
-    }
-  };
-});
+// myApp.directive('ngElevateZoom', function() {
+//   return {
+//     restrict: 'A',
+//     scope: true,
+//     compile: function(scope, element, attrs) {
+//       $(element).elevateZoom(scope.$eval(attrs.elevateZoom));
+//     }
+//   };
+// });
 
 myApp.directive('whenScrolled', function() {
     return function(scope, elm, attr) {
@@ -135,8 +157,9 @@ myApp.directive('whenScrolled', function() {
       
         elm.bind('scroll', function() {
             if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-                scope.loading = true;
+               
                 scope.$apply(attr.whenScrolled);
+                 scope.loading = true;
             }
             
         });
@@ -148,3 +171,17 @@ myApp.directive('whenScrolled', function() {
     return arr.slice(start, end);
   };
 });
+
+// myApp.directive('hiddenRepeat',function($parse){
+//   return {
+//     link: function(scope, elem, attr){
+//       var data = $parse(attr.hiddenRepeat)(scope);
+//       if(data){
+//         for (var i=0;i< data.length;i++){ 
+//        elem.append('<div><img u="image" src="{{product.avatar_content_type}}" /></div>');
+       
+//         }  
+//       }
+//     }
+//   };
+// });

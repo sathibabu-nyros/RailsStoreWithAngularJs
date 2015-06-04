@@ -32,7 +32,7 @@
     <label class="control-label col-md-3">Image </label>
     <div class="col-md-4">
 
-      <img ng-src="{{product.avatar_file_name}}">
+      <img ng-src="{{product.avatar_content_type}}">
 
     <div ng-repeat="images in productimages" ng-show="productimages">
     <img ng-src="{{images}}" style="float:left;">    
@@ -44,10 +44,10 @@
 
 <div class="form-group" >
     <label class="control-label col-md-3">Pictures<span class="required">* </span> </label>
-   <!--  <div class="col-md-4">
-        <input type="file"  name="file"  ng-model="file" >
+    <div class="col-md-4">
+        <input type="file"  ng-hide="product.id" ngf-select ngf-change="upload($files)"  >
        
-    </div> -->
+    </div>
     <div class="col-md-4">
    <div class="button" ngf-select ngf-change="upload($files)" ngf-multiple="multiple" multiple="true" style="cursor:pointer;">Select File</div>
  </div>
