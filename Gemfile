@@ -20,6 +20,7 @@ gem 'angularjs-bootstrap-rails'
 gem 'owlcarousel-rails'
 gem 'bootbox-rails'
 gem 'angular_rails_csrf'
+gem 'ratyrate'
 
 source "https://rails-assets.org" do
   gem "rails-assets-angular-devise"

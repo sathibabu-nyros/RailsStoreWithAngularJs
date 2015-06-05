@@ -12,9 +12,14 @@
 //
 //= require jquery
 //= require angular
+//= require angular-animate
 //= require angular-route
+
 //= require angular-resource
 //= require angular-devise
+//= require angular/ui-bootstrap-tpls
 //= require bootbox
+//= require jquery.raty
+//= require ratyrate
 //= require_tree .
 

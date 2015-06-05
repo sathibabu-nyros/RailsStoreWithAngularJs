@@ -8,13 +8,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Shop</a>
+                <a class="navbar-brand" href="#/store">Shop</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Home</a>
+                        <a href="#/store">Home</a>
                     </li>
                     
                    
@@ -27,10 +27,10 @@
           </a> -->
        
           <p class="navbar-text navbar-right"  >
-          
-            <b ng-show=" {{user[0].id}}"> Currently logged in as {{user[0].email}}</b>
-            <a ng-hide=" {{user[0].id}}" href="#/users/login" class="navbar-link">LogIn |</a>&nbsp; <a ng-hide=" {{user[0].id}}" href="#/users/register" class="navbar-link">Register</a>&nbsp;
-            &nbsp; <a ng-show=" {{user[0].id}}" ng-click="logout()" class="navbar-link">Not you..? Logout</a>&nbsp;
+            <span ng-show=" {{user[0].id}}">
+            <b> Currently logged in as {{user[0].email}}</b><span>&nbsp;&nbsp;   Not you..?</span><a ng-show=" {{user[0].id}}" ng-click="logout()" class="navbar-link" style="cursor:pointer">Logout</a></span>
+            <a ng-hide=" {{user[0].id}}" href="#/users/login" class="navbar-link">LogIn |</a>&nbsp; <a ng-hide=" {{user[0].id}}" href="#/users/register" class="navbar-link">Register</a>
+           
           </p> 
 
           
