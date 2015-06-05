@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4" >
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-lock"></span> Register</div>
+                <div class="panel-body">
+                    <form class="form-horizontal"  name="RegisterForm" novalidate ng-submit="register()">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-3 control-label">
+                            Email</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" ng-model="user.email" placeholder="Email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">
+                            Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" ng-model="user.password" placeholder="Password" name="password" required>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">
+                            Confirm Password</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" ng-model="user.cpassword" placeholder="Confirm Password" name="cpassword" required>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group last">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-success btn-sm">
+                                Register</button>
+                                 <button type="reset" class="btn btn-default btn-sm">
+                                Reset</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Already Registred? <a href="#/users/login">Login here</a>
+                    <a href="#/store" class="right">Store</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

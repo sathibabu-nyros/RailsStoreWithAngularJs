@@ -6,6 +6,27 @@ myApp.factory('Products', ['$resource',function($resource){
   })
 }]);
 
+myApp.factory('UserLogin', ['Auth',function(Auth){
+  return {
+
+      Login: function(){
+
+           Auth.currentUser().then(function(user) {           
+               return user;
+               console.log(user); 
+              
+           }, function(error) {
+               // unauthenticated error
+           });
+   }
+
+  }
+
+
+        
+ 
+}]);
+
 // myApp.factory('Product', ['$resource', function($resource){
 //   return $resource('/products/:id.json', {}, {
 //     show: { method: 'GET' },
@@ -15,15 +36,51 @@ myApp.factory('Products', ['$resource',function($resource){
 // }]);
 
 //Controller
-myApp.controller("StoreListCtr", ['$scope', '$http', '$resource', 'Products', 'Product', '$location','$timeout', function($scope, $http, $resource, Products, Product, $location,$timeout) {
+myApp.controller("StoreListCtr", ['$scope', '$http', '$resource', 'Products', 'Product', '$location','$timeout','Auth','UserLogin', function($scope, $http, $resource, Products, Product, $location,$timeout,Auth,UserLogin) {
 
-  
+    $scope.user = [];
+   // $scope.user.push(UserLogin.Login()); 
+
+    //alert(UserLogin.Login());
+      Auth.currentUser().then(function(user) {           
+          $scope.user.push(user);
+            console.log(user); 
+        }, function(error) {
+            // unauthenticated error
+        });
+
+        $scope.logout = function (){
+
+           var config = {
+            headers: {
+                'X-HTTP-Method-Override': 'DELETE'
+                  }
+              };
+              // Log in user...
+              // ...
+              Auth.logout(config).then(function(oldUser) {
+                  // alert(oldUser.email + "you're signed out now.");
+                   $location.path('/stasdfghjkore');
+              }, function(error) {
+                  // An error occurred logging out.
+              });
+
+              $scope.$on('devise:logout', function(event, oldCurrentUser) {
+                  // ...
+              });
+
+        };
+
+
 $scope.products = [];
 
 
    $scope.Brandfilters = function(taskId){
     return taskId
   };
+
+
+
 
 
   $scope.Brandfilters = '';
@@ -90,16 +147,25 @@ $scope.products = [];
 
 
 
-myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', '$location', '$routeParams','$http', function($scope, $resource, Product, Products,$location, $routeParams, $http) {
+myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', '$location', '$routeParams','$http','Auth', function($scope, $resource, Product, Products,$location, $routeParams, $http,Auth) {
   $scope.product = Product.get({id: $routeParams.id})
   $scope.products = [];
 
   // $scope.stdImageUrl = 'assets/products/standard_'+ $routeParams.id +'.jpg';
   
+  
+   
+     $scope.user = [];
+  
+      Auth.currentUser().then(function(user) {           
+          $scope.user.push(user);
+            console.log(user); 
+        }, function(error) {
+            // unauthenticated error
+        });
+
 
    $scope.stdImageUrl = '';
-   
-
    $scope.productimages = [];
    $scope.productimagesoriginal = [];
    $scope.productimages = [];
@@ -136,6 +202,27 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
    
 
     }
+
+
+     $scope.logout = function (){
+
+           var config = {
+            headers: {
+                'X-HTTP-Method-Override': 'DELETE'
+                  }
+              };           
+              Auth.logout(config).then(function(oldUser) {
+                  // alert(oldUser.email + "you're signed out now.");
+                   $location.path('/stasdfghjkore');
+              }, function(error) {
+                 
+              });
+
+              $scope.$on('devise:logout', function(event, oldCurrentUser) {
+                  // ...
+              });
+
+        };
 
 
 
@@ -185,3 +272,15 @@ myApp.directive('whenScrolled', function() {
 //     }
 //   };
 // });
+
+myApp.controller('ModalInstanceCtrl', function ($scope) {
+
+  
+
+  $scope.login = function(){
+      alert('wow');
+  };
+  
+
+ 
+});

@@ -1,8 +1,8 @@
-var myApp = angular.module('myapplication', ['ngRoute', 'ngResource','uiSlider','ngFileUpload']); 
+var myApp = angular.module('myapplication', ['ngRoute', 'ngResource','uiSlider','ngFileUpload','Devise']); 
 
 //Routes
 myApp.config([
-  '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+  '$routeProvider', '$locationProvider','AuthProvider', function($routeProvider, $locationProvider,AuthProvider) {
     $routeProvider.when('/users',{
       templateUrl: '/templates/users/index.html',
       controller: 'UserListCtr'
@@ -35,8 +35,22 @@ myApp.config([
       templateUrl: '/templates/store/show.html',
       controller: 'StoreShowCtr'
     });
+    $routeProvider.when('/users/login',{
+      templateUrl: '/templates/users/login.html',
+      controller: 'UserLoginCtr'
+    });
+    $routeProvider.when('/users/register', {
+      templateUrl: '/templates/users/register.html',
+      controller: 'UserRegisterCtr'
+    });
+    // $routeProvider.when('/users/logout', {
+    //   templateUrl: '/templates/store/index.html',
+    //   controller: 'StoreListCtr'
+    // });
     $routeProvider.otherwise({
       redirectTo: '/store'
     });
   }
 ]);
+
+
