@@ -13,7 +13,7 @@ myApp.factory('UserLogin', ['Auth',function(Auth){
 
            Auth.currentUser().then(function(user) {           
                return user;
-               console.log(user); 
+               //console.log(user); 
               
            }, function(error) {
                // unauthenticated error
@@ -40,11 +40,14 @@ myApp.controller("StoreListCtr", ['$scope', '$http', '$resource', 'Products', 'P
 
     $scope.user = [];
    // $scope.user.push(UserLogin.Login()); 
+   $scope.avgstars = 5;
+  
+
 
     //alert(UserLogin.Login());
       Auth.currentUser().then(function(user) {           
           $scope.user.push(user);
-            console.log(user); 
+            //console.log(user); 
         }, function(error) {
             // unauthenticated error
         });
@@ -78,6 +81,7 @@ $scope.products = [];
    $scope.Brandfilters = function(taskId){
     return taskId
   };
+
 
 
 
@@ -154,29 +158,30 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
   // $scope.stdImageUrl = 'assets/products/standard_'+ $routeParams.id +'.jpg';
   
 
-   $scope.rate = 7;
-  $scope.max = 10;
-  $scope.isReadonly = false;
-
-  $scope.hoveringOver = function(value) {
-    $scope.overStar = value;
-    $scope.percent = 100 * (value / $scope.max);
-  };
-
-  $scope.ratingStates = [
-    {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-    {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-    {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-    {stateOn: 'glyphicon-heart'},
-    {stateOff: 'glyphicon-off'}
-  ];
   
+        //rating script
+         $scope.rating = 1;
+          $scope.ratings = [{
+              current: 1,
+              max: 5
+          }];
+
    
      $scope.user = [];
   
       Auth.currentUser().then(function(user) {           
           $scope.user.push(user);
-            console.log(user); 
+           // console.log(user); 
+
+            $http.post("/getuser_rate",{rater_id:user.id, rateable_id:$routeParams.id}).success(function (data) {
+                 //console.log(data); 
+
+                  $scope.ratings = [{
+                      current: data[0].stars,
+                      max: 5
+                  }];
+               });   
+
         }, function(error) {
             // unauthenticated error
         });
@@ -242,6 +247,33 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
         };
 
 
+          $scope.getSelectedRating = function (rating) {
+              //console.log(rating);
+
+              
+
+              $http.post('/rate', {score:rating, dimension:'price', id:$routeParams.id, klass:'Product'}).
+                    success(function(data, status, headers, config) {
+                      // this callback will be called asynchronously
+                      // when the response is available
+                     
+                      if(data == false)
+                      {
+                        alert('You need to sign in or sign up before continuing.');
+                         $scope.ratings = [{
+                            current: 1,
+                            max: 5
+                        }];
+                      }
+                    }).
+                    error(function(data, status, headers, config) {
+                     
+                    });
+
+
+          }
+
+
 
 }]);
 
@@ -300,4 +332,47 @@ myApp.controller('ModalInstanceCtrl', function ($scope) {
   
 
  
+});
+
+//rating 
+
+
+myApp.directive('starRating', function () {
+    return {
+        restrict: 'A',
+        template: '<ul class="rating">' +
+            '<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">' +
+            '\u2605' +
+            '</li>' +
+            '</ul>',
+        scope: {
+            ratingValue: '=',
+            max: '=',
+            onRatingSelected: '&'
+        },
+        link: function (scope, elem, attrs) {
+
+            var updateStars = function () {
+                scope.stars = [];
+                for (var i = 0; i < scope.max; i++) {
+                    scope.stars.push({
+                        filled: i < scope.ratingValue
+                    });
+                }
+            };
+
+            scope.toggle = function (index) {
+                scope.ratingValue = index + 1;
+                scope.onRatingSelected({
+                    rating: index + 1
+                });
+            };
+
+            scope.$watch('ratingValue', function (oldVal, newVal) {
+                if (newVal) {
+                    updateStars();
+                }
+            });
+        }
+    }
 });

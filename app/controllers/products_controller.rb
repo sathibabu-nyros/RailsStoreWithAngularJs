@@ -7,7 +7,8 @@ class ProductsController < ApplicationController
     @products = Product.paginate(:page => params[:page], :per_page => 6) if params[:page].present?
      @products.each do |product|
       product[:avatar_content_type] = product.avatar.url(:medium) 
-      product[:avatar_file_name] = product.avatar.url(:thumb)   
+      @avgrate = RatingCache.find_by_cacheable_id(product.id)
+      product[:avatar_file_name] = @avgrate.avg if @avgrate.present?
     end
     respond_with(@products) do |format|
       format.json { render :json => @products.as_json }

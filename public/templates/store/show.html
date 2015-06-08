@@ -44,7 +44,7 @@
 
        <div star-rating ng-model="rating1" max="10" on-rating-selected="rateFunction(rating)"></div>
       <!-- rating script -->
-  <h4>Default</h4>
+  <!-- <h4>Default</h4>
     <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
     <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
 
@@ -58,8 +58,37 @@
     <div ng-init="x = 5"><rating ng-model="x" max="15" state-on="'glyphicon-ok-sign'" state-off="'glyphicon-ok-circle'"></rating> <b>(<i>Rate:</i> {{x}})</b></div>
     <div ng-init="y = 2"><rating ng-model="y" rating-states="ratingStates"></rating> <b>(<i>Rate:</i> {{y}})</b></div>
 
-    <button class="btn btn-sm btn-success" ng-click="" ng-disabled="isReadonly">AddToCart</button>
+    <button class="btn btn-sm btn-success" ng-click="" ng-disabled="isReadonly">AddToCart</button> -->
   
+
+  <div> <span ng-repeat="rating in ratings">{{rating.current}} out of
+            {{rating.max}} 
+        <div star-rating rating-value="rating.current" max="rating.max"   on-rating-selected="getSelectedRating(rating)"></div>
+        </span>
+    </div>
+
+    <style type="text/css">
+      .rating {
+    color: #a9a9a9;
+    margin: 0;
+    padding: 0;
+      }
+      ul.rating {
+          display: inline-block;
+      }
+      .rating li {
+          list-style-type: none;
+          display: inline-block;
+          padding: 1px;
+          text-align: center;
+          font-weight: bold;
+          cursor: pointer;
+      }
+      .rating .filled {
+          color: red;
+      }
+    </style>
+
     <hr />
 
   

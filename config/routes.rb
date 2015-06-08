@@ -18,6 +18,8 @@ Rails.application.routes.draw do
    match '/products/:id/image_show/' => 'products#image_show',  via: [:get]
    match '/products/:id/originalimage_show/' => 'products#originalimage_show',  via: [:get]
 
+
+   match '/getuser_rate' => 'rater#getuser_rate',  via: [:post]
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

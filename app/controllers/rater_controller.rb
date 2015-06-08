@@ -10,4 +10,14 @@ class RaterController < ApplicationController
       render :json => false
     end
   end
+
+  def getuser_rate
+  	 @userrate = Rate.where(:rater_id =>params[:rater_id],:rateable_id =>params[:rateable_id])
+    if @userrate
+      render json: @userrate.as_json, status: :ok
+    else
+      render :json => false
+    end
+  end
+  
 end
