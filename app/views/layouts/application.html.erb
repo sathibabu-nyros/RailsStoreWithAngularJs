@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="myapplication">
+<html ng-app="myapplication"  >
 <head>
   <title>Shopping Mall</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="container" ng-view>
+  <div class="container" ng-view >
   	<p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <%= yield %>

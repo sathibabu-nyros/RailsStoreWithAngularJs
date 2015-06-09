@@ -11,10 +11,10 @@ myApp.factory('UserLogin', ['Auth',function(Auth){
 
       Login: function(){
 
-           Auth.currentUser().then(function(user) {           
+           Auth.currentUser().then(function(user) {
                return user;
-               //console.log(user); 
-              
+               //console.log(user);
+
            }, function(error) {
                // unauthenticated error
            });
@@ -23,8 +23,8 @@ myApp.factory('UserLogin', ['Auth',function(Auth){
   }
 
 
-        
- 
+
+
 }]);
 
 // myApp.factory('Product', ['$resource', function($resource){
@@ -39,15 +39,19 @@ myApp.factory('UserLogin', ['Auth',function(Auth){
 myApp.controller("StoreListCtr", ['$scope', '$http', '$resource', 'Products', 'Product', '$location','$timeout','Auth','UserLogin', function($scope, $http, $resource, Products, Product, $location,$timeout,Auth,UserLogin) {
 
     $scope.user = [];
-   // $scope.user.push(UserLogin.Login()); 
-   $scope.avgstars = 5;
-  
+   // $scope.user.push(UserLogin.Login());
+  //rating script
+         $scope.rating = 1;
+          $scope.ratings = [{
+              current: 1,
+              max: 5
+          }];
 
 
     //alert(UserLogin.Login());
-      Auth.currentUser().then(function(user) {           
+      Auth.currentUser().then(function(user) {
           $scope.user.push(user);
-            //console.log(user); 
+            //console.log(user);
         }, function(error) {
             // unauthenticated error
         });
@@ -91,7 +95,7 @@ $scope.products = [];
 
   $scope.lower_price = 100;
   $scope.upper_price = 500;
-  
+
    $scope.priceRange = function(products) {
 
     return (products['cost'] >= $scope.lower_price && products['cost'] <= $scope.upper_price);
@@ -101,41 +105,42 @@ $scope.products = [];
 
    $scope.limit = 3;
    // var end = 0;
-   // var products = []; 
+   // var products = [];
    $scope.loading = false;
    $scope.startList = 1;
-
+   $scope.page = 300;
     $scope.loadMore = function () {
-       
+
             $scope.loading = true;
+
 
             $timeout(function(){
                  $http.get("/products.json?page="+$scope.startList+"").success(function (data) {
-                $scope.totalItems=data.length;               
+                $scope.totalItems=data.length;
                 angular.forEach(data,function (key) {
-                    $scope.products.push(key);                                  
-                });      
+                    $scope.products.push(key);
+                });
                 //$scope.stopLoadingData = ($scope.products.length === $scope.totalItems);
                 $scope.startList += 1;
-            }); 
+            });
             if($scope.totalItems < 1){
               $scope.loading = false;
-            } 
+            }
             $timeout(function(){
               $scope.loading = false;
-            },500);               
-             
-            }, 500);  
+            },500);
+
+            }, 500);
     };
 
 
 
    $scope.loadMore();
- 
+
 }])
 .filter('unique', function() {
    return function(collection, keyname) {
-      var output = [], 
+      var output = [],
           keys = [];
 
       angular.forEach(collection, function(item) {
@@ -156,9 +161,9 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
   $scope.products = [];
 
   // $scope.stdImageUrl = 'assets/products/standard_'+ $routeParams.id +'.jpg';
-  
 
-  
+
+
         //rating script
          $scope.rating = 1;
           $scope.ratings = [{
@@ -166,21 +171,21 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
               max: 5
           }];
 
-   
+
      $scope.user = [];
-  
-      Auth.currentUser().then(function(user) {           
+
+      Auth.currentUser().then(function(user) {
           $scope.user.push(user);
-           // console.log(user); 
+           // console.log(user);
 
             $http.post("/getuser_rate",{rater_id:user.id, rateable_id:$routeParams.id}).success(function (data) {
-                 //console.log(data); 
+                 //console.log(data);
 
                   $scope.ratings = [{
                       current: data[0].stars,
                       max: 5
                   }];
-               });   
+               });
 
         }, function(error) {
             // unauthenticated error
@@ -191,37 +196,37 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
    $scope.productimages = [];
    $scope.productimagesoriginal = [];
    $scope.productimages = [];
-  
+
    $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
-                $scope.totalItems=data.length;               
+                $scope.totalItems=data.length;
                 angular.forEach(data,function (key) {
-                    $scope.productimages.push(key);                                  
+                    $scope.productimages.push(key);
                 });
-              });   
+              });
 
     $http.get('/products/'+$routeParams.id+'/originalimage_show.json').success(function (data) {
-                $scope.totalItems=data.length;               
+                $scope.totalItems=data.length;
                 angular.forEach(data,function (key) {
-                    $scope.productimagesoriginal.push(key);                                  
+                    $scope.productimagesoriginal.push(key);
                 });
-              }); 
+              });
 
      $http.get("/products.json?").success(function (data) {
-                $scope.totalItems=data.length;               
+                $scope.totalItems=data.length;
                 angular.forEach(data,function (key) {
-                    $scope.products.push(key);                                  
-                });    
-               });     
+                    $scope.products.push(key);
+                });
+               });
 
    $scope.setImage = function(images,image) {
- 
+
     //$('#mainimg').attr('src','');
     //$scope.mainImageUrl = imageUrl;
    $scope.product.show = true;
    $scope.stdImageUrl = image;
    $scope.zoomImageUrl = images;
    //$scope.zoomImageUrl = 'localhost/images/products/zoom_'+ id +'.jpg';
-   
+
 
     }
 
@@ -232,12 +237,12 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
             headers: {
                 'X-HTTP-Method-Override': 'DELETE'
                   }
-              };           
+              };
               Auth.logout(config).then(function(oldUser) {
                   // alert(oldUser.email + "you're signed out now.");
                    $location.path('/stasdfghjkore');
               }, function(error) {
-                 
+
               });
 
               $scope.$on('devise:logout', function(event, oldCurrentUser) {
@@ -250,13 +255,13 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
           $scope.getSelectedRating = function (rating) {
               //console.log(rating);
 
-              
+
 
               $http.post('/rate', {score:rating, dimension:'price', id:$routeParams.id, klass:'Product'}).
                     success(function(data, status, headers, config) {
                       // this callback will be called asynchronously
                       // when the response is available
-                     
+
                       if(data == false)
                       {
                         alert('You need to sign in or sign up before continuing.');
@@ -267,7 +272,7 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
                       }
                     }).
                     error(function(data, status, headers, config) {
-                     
+
                     });
 
 
@@ -287,17 +292,21 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
 //   };
 // });
 
-myApp.directive('whenScrolled', function() {
+myApp.directive('whenScrolled', function($window) {
     return function(scope, elm, attr) {
         var raw = elm[0];
-      
-        elm.bind('scroll', function() {
-            if (raw.scrollTop + raw.offsetHeight >= raw.scrollHeight) {
-               
+
+        angular.element($window).bind('scroll', function() {
+
+          //  if (this.scrollTop + this.offsetHeight >= this.scrollHeight) {
+              if(this.pageYOffset >= scope.page){
                 scope.$apply(attr.whenScrolled);
                  scope.loading = true;
+                 scope.page += scope.page;
+
+
             }
-            
+
         });
     };
 });
@@ -313,10 +322,10 @@ myApp.directive('whenScrolled', function() {
 //     link: function(scope, elem, attr){
 //       var data = $parse(attr.hiddenRepeat)(scope);
 //       if(data){
-//         for (var i=0;i< data.length;i++){ 
+//         for (var i=0;i< data.length;i++){
 //        elem.append('<div><img u="image" src="{{product.avatar_content_type}}" /></div>');
-       
-//         }  
+
+//         }
 //       }
 //     }
 //   };
@@ -324,17 +333,17 @@ myApp.directive('whenScrolled', function() {
 
 myApp.controller('ModalInstanceCtrl', function ($scope) {
 
-  
+
 
   $scope.login = function(){
       alert('wow');
   };
-  
 
- 
+
+
 });
 
-//rating 
+//rating
 
 
 myApp.directive('starRating', function () {

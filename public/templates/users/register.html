@@ -1,3 +1,5 @@
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-4" >
@@ -11,32 +13,45 @@
                             Email</label>
                         <div class="col-sm-9">
                             <input type="email" class="form-control" ng-model="user.email" placeholder="Email" name="email" required>
+                            <p ng-show="RegisterForm.email.$invalid && !RegisterForm.email.$pristine" class="help-block">Enter a valid email.</p>
+                            <p ng-show="RegisterForm.email.$error.required" class="help-block">Email is required.</p>
+
                         </div>
-                    </div>
+
+
+                  </div>
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">
                             Password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control" ng-model="user.password" placeholder="Password" name="password" required>
-                        </div>
+                            <input type="password" class="form-control"  ng-model="user.password" placeholder="Password" name="password" ng-minlength="4"  required>
+                            <p ng-show="RegisterForm.password.$error.required" class="help-block">password is required.</p>
+                            <p ng-show="RegisterForm.password.$error.minlength"  class="help-block">password is too short.</p>
+                      </div>
                     </div>
                      <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">
                             Confirm Password</label>
                         <div class="col-sm-9">
                             <input type="password" class="form-control" ng-model="user.cpassword" placeholder="Confirm Password" name="cpassword" required>
-                        </div>
+                            <p ng-show="RegisterForm.cpassword.$error.required" class="help-block">Confirm password is required.</p>
+                            <p ng-show="RegisterForm.cpassword.$viewValue != RegisterForm.password.$viewValue" class="help-block">Confirm password Not Matched.</p>
+
                     </div>
-                   
+                    </div>
+
                     <div class="form-group last">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button type="submit" class="btn btn-success btn-sm">
+                            <button type="submit" class="btn btn-success btn-sm" ng-disabled="RegisterForm.$invalid">
                                 Register</button>
-                                 <button type="reset" class="btn btn-default btn-sm">
+                                 <button type="reset" class="btn btn-default btn-sm"  >
                                 Reset</button>
                         </div>
                     </div>
                     </form>
+
+
+
                 </div>
                 <div class="panel-footer">
                     Already Registred? <a href="#/users/login">Login here</a>

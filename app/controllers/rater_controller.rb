@@ -1,5 +1,5 @@
 class RaterController < ApplicationController
-
+  after_action :update_avgrate, only: [:create]
   def create
     if user_signed_in?
       obj = params[:klass].classify.constantize.find(params[:id])
@@ -19,5 +19,12 @@ class RaterController < ApplicationController
       render :json => false
     end
   end
-  
+
+  def update_avgrate
+    product = Product.find(params[:id])
+    @avgrate = RatingCache.find_by_cacheable_id(params[:id])
+    product[:avgrate] = @avgrate.avg if @avgrate.present?
+    product.save
+  end
+
 end

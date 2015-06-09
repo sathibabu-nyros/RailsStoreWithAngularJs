@@ -1,27 +1,27 @@
 
 <div ng-include src="'/templates/store/_navbar.html'"></div>
 
-        <div class="container" ng-init="setuser()">
+        <div class="container" when-scrolled="loadMore()">
     <div class="row clearfix">
         <div class="col-md-8 column" style="border-right:1px solid #ddd">
 
 
             <div class="page-header">
                 <h1>
-                    Product List 
+                    Product List
                 </h1>
             </div>
 
             <form class="form-inline" role="form">
                 <div class="form-group">
                      <label for="exampleInputEmail1">Search Product </label> &nbsp;<input class="form-control"  type="text" ng-model="Query"/>&nbsp;&nbsp;&nbsp;
-                  
-                </div>    
+
+                </div>
             </form>
               <br>
             <!-- product list display -->
-            
-            <div class="row load"  when-scrolled="loadMore()">
+
+            <div class="row">
                 <div class="col-md-4 animate"    ng-repeat="product in products | filter:Query | filter:Brandfilters | filter:priceRange" >
                     <div class="thumbnail">
                          <a  href="#store/{{product.id}}/show" >
@@ -29,20 +29,29 @@
                         </a>
                         <div class="caption">
                             <h3>
-                               <a  href="#store/{{product.id}}/show">{{product.name}}</a>   
+                               <a  href="#store/{{product.id}}/show">{{product.name}}</a>
                             </h3>
                             <h5>Price: <label>&nbsp;{{product.cost | currency}}</label></h5>
-                            <label>Brand: {{product.brand}}</label> 
-                            <p>Avg Rating:  </p> 
-                       
+                            <label>Brand: {{product.brand}}</label>
+                            <p>
+
+               <div style="float:left"> <span ng-repeat="rating in ratings">
+        <div star-rating rating-value="product.avgrate" max="rating.max"   ></div>
+        </span>
+    </div>
+     </p>
+     <style type="text/css">
+
+     </style>
+
                             <br>
-                             <!-- <button class="btn btn-sm btn-success" ng-click="addItem({{product.id}})" ng-disabled="isReadonly">AddToCart</button>  -->                       
-                           
+                             <!-- <button class="btn btn-sm btn-success" ng-click="addItem({{product.id}})" ng-disabled="isReadonly">AddToCart</button>  -->
+
                         </div>
                     </div>
-                </div>  
+                </div>
 
-                <div ng-show="loading" class="loderdiv"><img  class="loader" src="/images/support-loading.gif"></div>  
+                <div ng-show="loading" class="loderdiv"><img  class="loader" src="/images/support-loading.gif"></div>
                     <style type="text/css">
                     .loader{
                       width:50px;
@@ -53,14 +62,14 @@
                     .loderdiv{
                       width:50px;
                       margin: 50px auto;
-                      position: relative;       
-                      
+                      position: relative;
+
                     }
                     </style>
-                      
-            </div> 
-               
-          
+
+            </div>
+
+
             <!-- product list display -->
         </div>
         <div class="col-md-4 column" style="margin-top:5px;">
@@ -69,45 +78,45 @@
 
                 <div class="list-group-item" >
                     <label>PRICE</label>
-                   
+
                 </div>
                 <div class="list-group-item" >
                  <!--   <input type="range"  min="100" max="200" step="10" ng-model="upper_price"/> -->
                        <!-- <slider floor="0" ceiling="50" ng-model-low="lower_price" ng-model-high="upper_price"></slider> -->
-   
-                  
-                     <slider floor="100" ceiling="500" ng-model-low="lower_price" ng-model-high="upper_price"></slider> 
+
+
+                     <slider floor="100" ceiling="500" ng-model-low="lower_price" ng-model-high="upper_price"></slider>
                         Min-Price: <strong>{{ lower_price | currency}}</strong>
                         &nbsp;
                         Max-Price: <strong>{{upper_price | currency }}</strong>
                 </div>
-               
+
                  <div class="list-group-item" >
                     <label>BRAND</label>
                 </div>
-                <div class="list-group-item" >               
+                <div class="list-group-item" >
                 <a style="cursor:pointer" ng-click="Brandfilters = ''">All Brands</a>
-                
+
                 </div>
-    <div class="list-group-item" >               
-     <a style="cursor:pointer" ng-click="Brandfilters = 'Samsung'">Samsung</a>     
+    <div class="list-group-item" >
+     <a style="cursor:pointer" ng-click="Brandfilters = 'Samsung'">Samsung</a>
     </div>
-    <div class="list-group-item" >               
-     <a style="cursor:pointer" ng-click="Brandfilters = 'Microsoft'">Microsoft</a>     
+    <div class="list-group-item" >
+     <a style="cursor:pointer" ng-click="Brandfilters = 'Microsoft'">Microsoft</a>
     </div>
-    <div class="list-group-item" >               
-     <a style="cursor:pointer" ng-click="Brandfilters = 'Sony'">Sony</a>     
+    <div class="list-group-item" >
+     <a style="cursor:pointer" ng-click="Brandfilters = 'Sony'">Sony</a>
     </div>
-    <div class="list-group-item" >               
-     <a style="cursor:pointer" ng-click="Brandfilters = 'Htc'">Htc</a>     
+    <div class="list-group-item" >
+     <a style="cursor:pointer" ng-click="Brandfilters = 'Htc'">Htc</a>
     </div>
-    <div class="list-group-item" >               
-     <a style="cursor:pointer" ng-click="Brandfilters = 'Celkon'">Celkon</a>     
+    <div class="list-group-item" >
+     <a style="cursor:pointer" ng-click="Brandfilters = 'Celkon'">Celkon</a>
     </div>
                 <!-- <div class="list-group-item" ng-repeat="product in products | unique: 'brand'" >
             <a style="cursor:pointer"  ng-click="Brandfilters = 'product.brand'">{{product.brand}}</a>
-                </div>     -->   
-              
+                </div>     -->
+
             </div>
            <!--   <div class="list-group">
                  <a href="#" class="list-group-item active">Product List <label style="float:right">Sort By Cost</label> </a>
@@ -115,12 +124,10 @@
                 <div class="list-group-item" ng-repeat="product in products | orderBy:'Cost'" >
                     <a href="#viewProduct/{{products.indexOf(product)}}">{{product.Name}}  <label style="float:right;color:green;">{{product.Cost | currency}}</label> </a>
                 </div>
-               
-              
+
+
             </div> -->
         </div>
     </div>
 
 </div>
-
-

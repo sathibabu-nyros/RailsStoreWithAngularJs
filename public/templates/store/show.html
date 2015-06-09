@@ -9,20 +9,20 @@
         <div class="col-md-12 column">
 
          <!-- main image -->
-  
+
       <div class="easyzoom easyzoom--adjacent easyzoom--with-thumbnails" >
 
          <a   href="{{zoomImageUrl}}{{product.avatar_file_name}}">
-          <img src="{{stdImageUrl}}{{product.avatar_content_type}}"  alt=""  style="margin-top:5px;border:5px solid #ddd; width: 100%;" />  </a>  
+          <img src="{{stdImageUrl}}{{product.avatar_content_type}}"  alt=""  style="margin-top:5px;border:5px solid #ddd; width: 100%;" />  </a>
 
-      </div> 
+      </div>
     <!-- main image -->
       </div>
       </div>
       <br>
-     
+
       <!-- thubnails -->
-      <div class="row thumbnails">  
+      <div class="row thumbnails">
            <div  class="col-sm-3 col-xs-6" ng-repeat="images in productimages | limitTo:5" ng-show="$index > 0"><a  class="thumbnail" >
             <img  src="{{images}}" alt="Image" class="img-responsive" ng-click="setImage(productimagesoriginal[$index],images)" style="cursor:pointer;height:80px;"></a>
 
@@ -39,10 +39,10 @@
       <dl>
         <dt>
           {{product.description}}
-        </dt> 
+        </dt>
       </dl>
 
-       <div star-rating ng-model="rating1" max="10" on-rating-selected="rateFunction(rating)"></div>
+       <!-- <div star-rating ng-model="rating1" max="10" on-rating-selected="rateFunction(rating)"></div> -->
       <!-- rating script -->
   <!-- <h4>Default</h4>
     <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
@@ -59,39 +59,28 @@
     <div ng-init="y = 2"><rating ng-model="y" rating-states="ratingStates"></rating> <b>(<i>Rate:</i> {{y}})</b></div>
 
     <button class="btn btn-sm btn-success" ng-click="" ng-disabled="isReadonly">AddToCart</button> -->
-  
+
 
   <div> <span ng-repeat="rating in ratings">{{rating.current}} out of
-            {{rating.max}} 
+            {{rating.max}}
         <div star-rating rating-value="rating.current" max="rating.max"   on-rating-selected="getSelectedRating(rating)"></div>
         </span>
     </div>
 
     <style type="text/css">
-      .rating {
-    color: #a9a9a9;
-    margin: 0;
-    padding: 0;
-      }
-      ul.rating {
-          display: inline-block;
-      }
+
       .rating li {
-          list-style-type: none;
-          display: inline-block;
-          padding: 1px;
-          text-align: center;
-          font-weight: bold;
           cursor: pointer;
       }
       .rating .filled {
           color: red;
       }
+
     </style>
 
     <hr />
 
-  
+
     </div>
   </div>
    <!-- product information -->
@@ -100,19 +89,19 @@
   <div class="row clearfix">
     <div class="col-md-12 column">
        <a  class="list-group-item active">CUSTOMERS WHO VIEWED THIS PRODUCT ALSO VIEWED</a><br>
- 
+
         <div class="row products" style="margin:0px auto;">
- 
+
 
     <a  href="#store/{{images.id}}/show"  ng-repeat="images in products | limitTo : 10">
       <img src="{{images.avatar_file_name}}" alt="" class="img-rounded" >
 
       <!-- <span>{{images.name}}</span> -->
     </a>
-    
-  
+
+
    <style type="text/css">
-  
+
 .products img {
     margin: 5px 5px 5px 5px;
     -webkit-transform: scale(1, 1);
@@ -130,13 +119,13 @@
     -ms-transform: scale(1.1, 1.1);
     transform: scale(1.1, 1.1);
     transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s; /* Safari */   
+    -webkit-transition-duration: 0.3s; /* Safari */
     z-index: 999;
     border:0px solid #ccc;
     }
     </style>
   </div>
-      
+
     </div>
   </div>
  <br>
@@ -152,17 +141,17 @@
         </div>
         <div class="list-group-item">
          Diameter  <label style="float:right"> {{productinfo[0].Diameter}}</label>
-        </div>    
+        </div>
          <div class="list-group-item">
          Weight  <label style="float:right"> {{productinfo[0].Weight}}</label>
-        </div>  
+        </div>
          <div class="list-group-item">
          Thickness  <label style="float:right"> {{productinfo[0].Thickness}}</label>
-        </div>     
+        </div>
       </div>
     </div>
 
-   
+
   </div>
 </div>
 
@@ -178,14 +167,14 @@
 
        $(".thumbnails").on("click", "div a", function(e) {
       var $this = $(this);
-    
+
    e.preventDefault();
       $('#zoomimage').remove();
-     
+
       // Use EasyZoom's `swap` method
       api.swap($this.data("standard"), $this.attr("href"));
     });
 });
 
-  
+
   </script>

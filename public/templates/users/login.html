@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-4" >
+        <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <span class="glyphicon glyphicon-lock"></span> Login</div>
@@ -11,6 +11,8 @@
                             Email</label>
                         <div class="col-sm-9">
                             <input type="email" class="form-control" ng-model="user.email" placeholder="Email" name="email" required>
+                            <p ng-show="LoginForm.email.$invalid && !LoginForm.email.$pristine" class="help-block">Enter a valid email.</p>
+                            <p ng-show="LoginForm.email.$error.required" class="help-block">Email is required.</p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -18,6 +20,7 @@
                             Password</label>
                         <div class="col-sm-9">
                             <input type="password" class="form-control" ng-model="user.password" name="password" placeholder="Password" required>
+                            <p ng-show="LoginForm.password.$error.required" class="help-block">password is required.</p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -32,7 +35,7 @@
                     </div>
                     <div class="form-group last">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button type="submit" class="btn btn-success btn-sm">
+                            <button type="submit" class="btn btn-success btn-sm" ng-disabled="LoginForm.$invalid">
                                 Sign in</button>
                                  <button type="reset" class="btn btn-default btn-sm">
                                 Reset</button>

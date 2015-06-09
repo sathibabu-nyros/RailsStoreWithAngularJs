@@ -19,6 +19,7 @@ myApp.controller("UserLoginCtr", ['$scope', 'Auth','$location', function($scope,
             console.log(user); // => {id: 1, ect: '...'}
         }, function(error) {
             // Authentication failed...
+            alert("Invalid email or password.");
         });
 
         $scope.$on('devise:login', function(event, currentUser) {
@@ -33,7 +34,7 @@ myApp.controller("UserLoginCtr", ['$scope', 'Auth','$location', function($scope,
 
 
     };
- 
+
 }]);
 
 
@@ -41,6 +42,7 @@ myApp.controller("UserLoginCtr", ['$scope', 'Auth','$location', function($scope,
 myApp.controller("UserRegisterCtr", ['$scope', 'Auth','$location', function($scope,Auth,$location) {
 
      $scope.user={};
+
 
   $scope.register = function (){
   var credentials = {
@@ -55,11 +57,21 @@ myApp.controller("UserRegisterCtr", ['$scope', 'Auth','$location', function($sco
         };
 
         Auth.register(credentials, config).then(function(registeredUser) {
-            console.log(registeredUser); 
+            console.log(registeredUser);
             Auth.login(credentials, config);
             $location.path('/store');
         }, function(error) {
             // Registration failed...
+
+          //  $scope.errors.push(error);
+          if(error.data.errors.email){
+            alert('Email Alerdy Taken...');
+          }else if(error.data.errors.password_confirmation){
+          alert(error.data.errors.password_confirmation);
+          }
+
+
+
         });
 
         $scope.$on('devise:new-registration', function(event, user) {
@@ -67,5 +79,5 @@ myApp.controller("UserRegisterCtr", ['$scope', 'Auth','$location', function($sco
         });
 
 }
- 
+
 }]);

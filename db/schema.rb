@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150605113205) do
+ActiveRecord::Schema.define(version: 20150609032056) do
 
   create_table "addresses", force: true do |t|
     t.string   "street1"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150605113205) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.float    "avgrate",                                      default: 1.0
   end
 
   create_table "rates", force: true do |t|
