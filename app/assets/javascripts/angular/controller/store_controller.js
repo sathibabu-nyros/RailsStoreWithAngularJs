@@ -108,7 +108,7 @@ $scope.products = [];
    // var products = [];
    $scope.loading = false;
    $scope.startList = 1;
-   $scope.page = 300;
+   $scope.page = 260;
     $scope.loadMore = function () {
 
             $scope.loading = true;
@@ -156,13 +156,44 @@ $scope.products = [];
 
 
 
-myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', '$location', '$routeParams','$http','Auth', function($scope, $resource, Product, Products,$location, $routeParams, $http,Auth) {
+myApp.controller("StoreShowCtr", ['$window', '$scope', '$resource', 'Product', 'Products', '$location', '$routeParams','$http','Auth', function($window,$scope, $resource, Product, Products,$location, $routeParams, $http,Auth) {
   $scope.product = Product.get({id: $routeParams.id})
   $scope.products = [];
 
   // $scope.stdImageUrl = 'assets/products/standard_'+ $routeParams.id +'.jpg';
 
+        $scope.review = false;
+        $scope.userreview = {};
 
+        $scope.showreview = function (msg){
+          $scope.review = msg;
+
+
+        };
+
+        $scope.getSelectedRating = function (rating) {
+          $scope.userreview.rating = rating;
+        }
+
+
+        $scope.postreview = function () {
+          //console.log($scope.userreview.rating);
+          $http.post('/rate', {score:$scope.userreview.rating, dimension:'price', id:$routeParams.id, klass:'Product', review:$scope.userreview.comment}).
+          success(function(data, status, headers, config) {
+          if(data == false)
+          {
+          alert('You need to sign in or sign up before continuing.');
+          $scope.ratings = [{
+          current: 1,
+          max: 5
+          }];
+          }
+          $window.location.reload()
+          }).
+          error(function(data, status, headers, config) {
+          });
+
+        };
 
         //rating script
          $scope.rating = 1;
@@ -170,6 +201,13 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
               current: 1,
               max: 5
           }];
+
+          $scope.productreviews = [];
+          $http.post('/get_reviews',{id:$routeParams.id}).success(function (data) {
+                       angular.forEach(data,function (key) {
+                           $scope.productreviews.push(key);
+                       });
+                     });
 
 
      $scope.user = [];
@@ -252,31 +290,31 @@ myApp.controller("StoreShowCtr", ['$scope', '$resource', 'Product', 'Products', 
         };
 
 
-          $scope.getSelectedRating = function (rating) {
-              //console.log(rating);
-
-
-
-              $http.post('/rate', {score:rating, dimension:'price', id:$routeParams.id, klass:'Product'}).
-                    success(function(data, status, headers, config) {
-                      // this callback will be called asynchronously
-                      // when the response is available
-
-                      if(data == false)
-                      {
-                        alert('You need to sign in or sign up before continuing.');
-                         $scope.ratings = [{
-                            current: 1,
-                            max: 5
-                        }];
-                      }
-                    }).
-                    error(function(data, status, headers, config) {
-
-                    });
-
-
-          }
+          // $scope.getSelectedRating = function (rating) {
+          //     //console.log(rating);
+          //
+          //
+          //     //
+          //     $http.post('/rate', {score:rating, dimension:'price', id:$routeParams.id, klass:'Product'}).
+          //           success(function(data, status, headers, config) {
+          //             // this callback will be called asynchronously
+          //             // when the response is available
+          //
+          //             if(data == false)
+          //             {
+          //               alert('You need to sign in or sign up before continuing.');
+          //                $scope.ratings = [{
+          //                   current: 1,
+          //                   max: 5
+          //               }];
+          //             }
+          //           }).
+          //           error(function(data, status, headers, config) {
+          //
+          //           });
+          //
+          //
+          // }
 
 
 

@@ -43,6 +43,10 @@ myApp.config([
       templateUrl: '/templates/users/register.html',
       controller: 'UserRegisterCtr'
     });
+    $routeProvider.when('/reviews/:id/show', {
+      templateUrl: '/templates/reviews/index.html',
+      controller: 'ReviewShowCtr'
+    });
     // $routeProvider.when('/users/logout', {
     //   templateUrl: '/templates/store/index.html',
     //   controller: 'StoreListCtr'

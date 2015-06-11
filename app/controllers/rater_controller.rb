@@ -1,5 +1,5 @@
 class RaterController < ApplicationController
-  after_action :update_avgrate, only: [:create]
+  after_action :update_avgrate,:post_review, only: [:create]
   def create
     if user_signed_in?
       obj = params[:klass].classify.constantize.find(params[:id])
@@ -20,11 +20,44 @@ class RaterController < ApplicationController
     end
   end
 
+  def get_reviews
+    @reviews = Review.where(:product_id => params[:id]).limit(3).order("id DESC");
+    if @reviews
+      render json: @reviews.as_json(include: { user: { only: :email}, product: { only: :avgrate} },
+                                                only: [:review,:created_at,:id]), status: :ok
+    else
+      render :json => false
+    end
+  end
+
+
+  def get_allreviews
+    @reviews = Review.where(:product_id => params[:id]).order("id DESC").paginate(:page => params[:page], :per_page => 4);
+    if @reviews
+      render json: @reviews.as_json(include: { user: { only: :email}, product: { only: :avgrate} },
+                                                only: [:review,:created_at,:id]), status: :ok
+    else
+      render :json => false
+    end
+  end
+
+
+
+  private
+
   def update_avgrate
     product = Product.find(params[:id])
     @avgrate = RatingCache.find_by_cacheable_id(params[:id])
     product[:avgrate] = @avgrate.avg if @avgrate.present?
     product.save
+  end
+
+  def post_review
+  @review = Review.new
+  @review[:product_id] = params[:id]
+  @review[:user_id] = current_user.id
+  @review[:review] = params[:review]
+  @review.save
   end
 
 end

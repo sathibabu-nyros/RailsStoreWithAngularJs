@@ -20,6 +20,8 @@ Rails.application.routes.draw do
 
 
    match '/getuser_rate' => 'rater#getuser_rate',  via: [:post]
+   match '/get_reviews' => 'rater#get_reviews',  via: [:post]
+   match '/get_allreviews' => 'rater#get_allreviews',  via: [:post]
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

@@ -1,0 +1,84 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#/store">Shop</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#/store">Home</a>
+                    </li>
+                    
+                   
+                </ul>
+          
+                <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+         <!--  <a href="#cart" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-shopping-cart"></span> Items ({{inCart.items.length}})
+         
+          </a> -->
+       
+          <p class="navbar-text navbar-right"  >
+            <span ng-show=" {{user[0].id}}">
+            <b> Currently logged in as {{user[0].email}}</b><span>&nbsp;&nbsp;   Not you..?</span><a ng-show=" {{user[0].id}}" ng-click="logout()" class="navbar-link" style="cursor:pointer">Logout</a></span>
+            <a ng-hide=" {{user[0].id}}" href="#/users/login" class="navbar-link">LogIn |</a>&nbsp; <a ng-hide=" {{user[0].id}}" href="#/users/register" class="navbar-link">Register</a>
+           
+          </p> 
+
+          
+        </li>
+      </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <br>
+
+    <script>
+$(function() {
+  $('#link').click(function() {
+
+    bootbox.dialog({
+        title: "Sign In",
+        message: '<div class="row" ng-controller="ModalInstanceCtrl">  ' +
+          '<div class="col-md-12"> ' +
+          '<form id="login_frm" ng-submit="login()" class="simple_form form-horizontal"   novalidate="novalidate">' +
+          '<div class="form-group"> ' +
+          '<label class="col-md-4 control-label" for="email">Email</label> ' +
+          '<div class="col-md-6"> ' +
+          '<input autofocus="autofocus" class="form-control input-md email optional" id="user_email" name="user[email]" placeholder="Email" type="email" > ' +
+          '</div> ' +
+          '</div> ' +
+
+          '<div class="form-group">' +
+          '<label class="col-md-4 control-label" for="password">Password</label> ' +
+          '<div class="col-md-6"> ' +
+          '<input class="form-control input-md string password optional" id="user_password" name="user[password]" placeholder="Password" type="password" >' +
+          '</div>' +
+          '</div>' +
+
+
+
+          '<div class="form-group"> ' +
+          '<label class="col-md-4 control-label"></label> ' +
+          '<div class="col-md-6"> ' +
+          '<input type="submit" value="Sign in" class="btn btn-success">' +          
+          '</div> ' +
+          '</div> ' +
+
+          '</form> </div>  </div>'
+        
+        });
+  })
+})
+</script>
