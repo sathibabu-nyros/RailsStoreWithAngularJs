@@ -1,7 +1,22 @@
+
+<!--
 <div class="col-md-10">
-    <form class="tab-pane active form-horizontal" id="first" name="productForm" novalidate ng-submit="save()">
+    <form class="tab-pane active form-horizontal" id="first" >
         <h3 class="block">Add new Product</h3>
         <div ng-include src="'/templates/products/_form.html'"></div>
     </form>
-</div>
+</div> -->
 
+
+<div class="container" style="padding-left: 0px; padding-right: 15px;">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">Complete this  in quick 3 steps!</h3>
+    </div>
+    <div class="panel-body">
+      <form  id="basicform" method="post" name="productForm" novalidate ng-submit="upload($files)">
+
+        <div ng-include src="'/templates/products/_form.html'"></div>
+      </form>
+    </div>
+  </div>

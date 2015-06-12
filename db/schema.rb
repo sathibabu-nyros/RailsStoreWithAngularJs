@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150609102016) do
+ActiveRecord::Schema.define(version: 20150611041050) do
 
   create_table "addresses", force: true do |t|
     t.string   "street1"
@@ -64,6 +64,28 @@ ActiveRecord::Schema.define(version: 20150609102016) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.float    "avgrate",                                      default: 1.0
+    t.string   "HandsetColor"
+    t.string   "SIM"
+    t.string   "ModelName"
+    t.boolean  "TouchScreen"
+    t.boolean  "VideoPlayer"
+    t.boolean  "MusicPlayer"
+    t.string   "PrimaryCamera"
+    t.string   "SecondaryCamera"
+    t.string   "Bluetooth"
+    t.string   "Wifi"
+    t.string   "USBConnectivity"
+    t.string   "Weight"
+    t.string   "Dimension"
+    t.string   "Size"
+    t.string   "Battery"
+    t.string   "ExpandableMemory"
+    t.string   "Memory"
+    t.string   "Internal"
+    t.string   "OS"
+    t.string   "Processor"
+    t.string   "OtherFeature"
+    t.string   "Warranty"
   end
 
   create_table "rates", force: true do |t|

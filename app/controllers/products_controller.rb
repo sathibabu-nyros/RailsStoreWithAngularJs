@@ -91,7 +91,7 @@ class ProductsController < ApplicationController
  private
 
   def product_params
-    params.fetch(:product, {}).permit(:name, :cost, :brand, :description, :avatar)
+    params.fetch(:product, {}).permit(:name, :cost, :brand, :description, :avatar, :ModelName, :SIM, :TouchScreen, :VideoPlayer, :PrimaryCamera, :Bluetooth, :USBConnectivity, :Weight, :Dimension, :Battery, :Memory, :OS, :Processor, :Warranty, :Wifi, :SecondaryCamera, :HandsetColor)
   end
 
 

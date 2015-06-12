@@ -34,47 +34,69 @@ myApp.controller("ProductUpdateCtr", ['$scope', '$resource', 'Product', '$locati
   $scope.product = Product.get({id: $routeParams.id})
   //load product images
   $scope.productimages = [];
-  
+
    $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
-                $scope.totalItems=data.length;               
+                $scope.totalItems=data.length;
                 angular.forEach(data,function (key) {
-                    $scope.productimages.push(key);                                  
+                    $scope.productimages.push(key);
                 });
-                  });      
+                  });
 
-  $scope.update = function(){
-    if ($scope.productForm.$valid){
-      Product.update({id: $scope.product.id},{product: $scope.product},function(){
-        $location.path('/products');
-      }, function(error) {
-        console.log(error)
-      });
-    }
-  };
-  
- $scope.upload = function (files) {     
-        if (files && files.length) {
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                Upload.upload({
-                    method: 'PUT',
-                    url: '/products/'+$routeParams.id+'/upload_images/',                     
-                    file: file,
-                    fileFormDataName: 'avatar'                    
-                });
-            }
-            $location.path('/products/'+$routeParams.id+'/edit');
-            $scope.productimages = [];
-  
-          $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
-                      $scope.totalItems=data.length;               
-                      angular.forEach(data,function (key) {
-                          $scope.productimages.push(key);                                  
-                      });
-                    }); 
-        }
+  // $scope.update = function(){
+  //   if ($scope.productForm.$valid){
+  //     Product.update({id: $scope.product.id},{product: $scope.product},function(){
+  //       $location.path('/products');
+  //     }, function(error) {
+  //       console.log(error)
+  //     });
+  //   }
+  // };
 
-    };
+ // $scope.upload = function (files) {
+ //
+ //   alert(files);
+ //        if (files && files.length) {
+ //            for (var i = 0; i < 1; i++) {
+ //                var file = files[i];
+ //                Upload.upload({
+ //                    method: 'PUT',
+ //                    url: '/products/'+$routeParams.id+'/upload_images/',
+ //                    file: file,
+ //                    fileFormDataName: 'avatar'
+ //                });
+ //            }
+ //            $location.path('/products/'+$routeParams.id+'/edit');
+ //            $scope.productimages = [];
+ //
+ //          $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
+ //                      $scope.totalItems=data.length;
+ //                      angular.forEach(data,function (key) {
+ //                          $scope.productimages.push(key);
+ //                      });
+ //                    });
+ //        }
+ //
+ //    };
+
+
+    $scope.update = function () {
+
+
+               Upload.upload({
+                   method: 'PUT',
+                   url: '/products/'+$routeParams.id+'.json',
+                    fields: { 'product[name]': $scope.product.name,
+                              'product[cost]': $scope.product.cost,
+                              'product[brand]': $scope.product.brand,
+                              'product[description]': $scope.product.description
+                            },
+                   file: $scope.product.file,
+                   fileFormDataName: 'product[avatar]'
+               });
+
+
+   };
+
 
 }]);
 
@@ -82,7 +104,7 @@ myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location
  // $scope.avatars = {};
   $scope.product = {};
 
-   
+
 
   $scope.save = function () {
     if ($scope.productForm.$valid){
@@ -93,12 +115,12 @@ myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location
       });
     }
 
-    
+
     // for (var i = 0; i < picFiles.length; i++) {
     //     var file = picFiles[i];
     //     $scope.upload = Upload.upload({
     //         url: '/products.json',
-    //         method: 'POST',            
+    //         method: 'POST',
     //         file: file,
     //         fileFormDataName: 'user[image]'
     //     });
@@ -107,10 +129,10 @@ myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location
 
   };
 
- 
-   
-    
-     $scope.upload = function (files) {     
+
+
+
+     $scope.upload = function (files) {
         if (files && files.length) {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -122,14 +144,10 @@ myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location
                                'product[description]': $scope.product.description
                              },
                     file: file,
-                    fileFormDataName: 'product[avatar]'                    
+                    fileFormDataName: 'product[avatar]'
                 });
             }
         }
     };
 
 }]);
-
-
-
-

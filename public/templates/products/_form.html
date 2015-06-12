@@ -1,112 +1,288 @@
-<div class="form-group" ng-class="{'has-error' : submitted && productForm.name.$invalid}">
-    <label class="control-label col-md-3">Product name <span class="required">* </span> </label>
-    <div class="col-md-4">
-        <input type="text" name="name" class="form-control" ng-model="product.name" required />
-    </div>
-    <p ng-show=" submitted && productForm.name.$invalid" class="help-block">Product name is required.</p>
+<a href="#/products" style="float:right">Back To List</a>
+        <div id="sf1" class="frm">
+
+          <fieldset>
+
+            <legend>Step 1 of 3</legend>
+
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Product name </label>
+              <div class="col-lg-6">
+                <input type="text" name="name" class="form-control" ng-model="product.name" required />
+              </div>
+              <p ng-show="productForm.name.$error.required" class="help-block">Name is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Brand </label>
+              <div class="col-lg-6">
+                <input type="text" name="brand" class="form-control" ng-model="product.brand" required />
+              </div>
+              <p ng-show="productForm.brand.$error.required" class="help-block">Brand is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Model </label>
+              <div class="col-lg-6">
+                <input type="text" name="ModelName" class="form-control" ng-model="product.ModelName" required />
+              </div>
+              <p ng-show="productForm.ModelName.$error.required" class="help-block">Model Name is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Cost </label>
+              <div class="col-lg-6">
+                <input type="text" name="cost" class="form-control" ng-model="product.cost" required />
+              </div>
+              <p ng-show="productForm.cost.$error.required" class="help-block">Cost is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">HandsetColor </label>
+              <div class="col-lg-6">
+                <input type="text" name="HandsetColor" class="form-control" ng-model="product.HandsetColor"  />
+              </div>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+
+
+
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <button class="btn btn-primary open1" type="button" >Next <span class="fa fa-arrow-right"></span></button>
+
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+
+        <div id="sf2" class="frm" style="display: none;">
+          <fieldset>
+            <legend>Step 2 of 3</legend>
+
+
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">SIM </label>
+              <div class="col-lg-6">
+                <input type="text" name="SIM" class="form-control" ng-model="product.SIM" required />
+              </div>
+              <p ng-show="productForm.SIM.$error.required" class="help-block">SIm type is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">TouchScreen </label>
+
+              <div class="col-lg-6">
+                <input type="radio" value="1" name="TouchScreen"  ng-model="product.TouchScreen"  />Yes
+                <input type="radio" ng-model="product.TouchScreen" value="0" name="TouchScreen"    />No
+              </div>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">VideoPlayer </label>
+              <div class="col-lg-6">
+                <input type="radio" value="1" name="VideoPlayer"  ng-model="product.VideoPlayer"  />Yes
+                <input type="radio" ng-model="product.VideoPlayer" value="0" name="VideoPlayer"    />No
+              </div>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">PrimaryCamera </label>
+
+              <div class="col-lg-6">
+                <input type="text" name="PrimaryCamera" class="form-control" ng-model="product.PrimaryCamera" required placeholder="enter pixel size"/>
+              </div>
+
+              <p ng-show="productForm.PrimaryCamera.$error.required" class="help-block">pixel is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">SecondaryCamera </label>
+              <!-- <input type="checkbox" class="maxtickets_enable_cb" ng-model="scam"
+              ng-checked="product.SecondaryCamera" >Yes -->
+
+              <div class="col-lg-6">
+                <input type="text" name="SecondaryCamera" class="form-control" ng-model="product.SecondaryCamera" required placeholder="enter pixel size"/>
+              </div>
+              <p ng-show="productForm.SecondaryCamera.$error.required" class="help-block">is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Bluetooth </label>
+              <div class="col-lg-6 ">
+                <input type="text" name="Bluetooth" class="form-control" ng-model="product.Bluetooth" required placeholder="enter version"/>
+              </div>
+              <p ng-show="productForm.Bluetooth.$error.required" class="help-block">is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Wifi </label>
+              <div class="col-lg-6 ">
+                <input type="text" name="Wifi" class="form-control" ng-model="product.Wifi" required placeholder="enter wifi range"/>
+              </div>
+              <p ng-show="productForm.Wifi.$error.required " class="help-block">is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">USBConnectivity </label>
+              <div class="col-lg-6 ">
+                <input type="text" name="USBConnectivity" class="form-control" ng-model="product.USBConnectivity" required placeholder="enter type"/>
+              </div>
+              <p ng-show="productForm.USBConnectivity.$error.required" class="help-block"> is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+
+
+
+
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <button class="btn btn-warning back2" type="button"><span class="fa fa-arrow-left"></span> Back</button>
+                <button class="btn btn-primary open2" type="button">Next <span class="fa fa-arrow-right"></span></button>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+
+        <div id="sf3" class="frm" style="display: none;">
+          <fieldset>
+            <legend>Step 3 of 3</legend>
+
+
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Weight </label>
+              <div class="col-lg-6">
+                <input type="text" name="Weight" class="form-control" ng-model="product.Weight" required />
+              </div>
+              <p ng-show="productForm.Weight.$error.required" class="help-block"> is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Dimension </label>
+              <div class="col-lg-6">
+                <input type="text" name="Dimension" class="form-control" ng-model="product.Dimension" required />
+              </div>
+              <p ng-show="productForm.Dimension.$error.required" class="help-block"> is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Battery </label>
+              <div class="col-lg-6">
+                <input type="text" name="Battery" class="form-control" ng-model="product.Battery" required />
+              </div>
+              <p ng-show="productForm.Battery.$error.required" class="help-block"> is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Memory </label>
+              <div class="col-lg-6">
+                <input type="text" name="Memory" class="form-control" ng-model="product.Memory" required />
+              </div>
+              <p ng-show="productForm.Memory.$error.required" class="help-block"> is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">OS </label>
+              <div class="col-lg-6">
+                <input type="text" name="OS" class="form-control" ng-model="product.OS" required />
+              </div>
+              <p ng-show="productForm.OS.$error.required" class="help-block"> is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Processor </label>
+              <div class="col-lg-6">
+                <input type="text" name="Processor" class="form-control" ng-model="product.Processor" required />
+              </div>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Warranty </label>
+              <div class="col-lg-6">
+                <input type="text" name="Warranty" class="form-control" ng-model="product.Warranty" required />
+              </div>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Description </label>
+              <div class="col-lg-6">
+              <textarea name="description" class="form-control" ng-model="product.description" required></textarea>
+              </div>
+              <p ng-show="productForm.description.$error.required" class="help-block"> is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+            <div class="form-group">
+              <label class="col-lg-2 control-label" for="uname">Description </label>
+              <div class="col-lg-6">
+                <input type="file" name="file" ng-model="product.file" />
+
+              </div>
+              <p ng-show="productForm.description.$error.required" class="help-block"> is required.</p>
+            </div>
+            <div class="clearfix" style="height: 10px;clear: both;"></div>
+
+
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-2">
+                <button class="btn btn-warning back3" type="button"><span class="fa fa-arrow-left"></span> Back</button>
+                <button class="btn btn-primary" type="submit"  ng-disabled="productForm.$invalid">Submit </button>
+
+              </div>
+
+            </div>
+            <hr>
+            <h4 ng-show="productForm.$invalid" class="help-block" style="color:red">Before submit please fill all required fields.</h4>
+          </fieldset>
+        </div>
+
+
+
 </div>
-<div class="form-group" ng-class="{'has-error' : submitted && productForm.brand.$invalid}">
-    <label class="control-label col-md-3">Brand <span class="required">* </span> </label>
-    <div class="col-md-4">
-        <input type="text" name="brand" class="form-control" ng-model="product.brand" required />
-    </div>
-    <p ng-show=" submitted && productForm.brand.$invalid" class="help-block">Brand is required.</p>
-</div>
-<div class="form-group" ng-class="{'has-error' : submitted && productForm.cost.$invalid}">
-    <label class="control-label col-md-3">cost <span class="required">* </span> </label>
-    <div class="col-md-4">
-        <input type="text" name="cost" class="form-control" ng-model="product.cost" required />
-    </div>
-    <p ng-show="submitted && productForm.cost.$error.required" class="help-block">cost is required.</p>
-    <p ng-show="submitted && productForm.cost.$error.cost" class="help-block">Enter valid cost</p>
-</div>
-<div class="form-group">
-    <label class="control-label col-md-3">Description </label>
-    <div class="col-md-4">
-        <input type="text" name="description" class="form-control" ng-model="product.description" />
-    </div>
-    <p ng-show="submitted && productForm.description.$invalid" class="help-block">description is required.</p>
-</div>
-
-<div class="form-group" >
-    <label class="control-label col-md-3">Image </label>
-    <div class="col-md-4">
-
-      <img ng-src="{{product.avatar_content_type}}">
-
-    <div ng-repeat="images in productimages" ng-show="productimages">
-    <img ng-src="{{images}}" style="float:left;">    
-    </div>
-
-    </div>
-   
-</div>
-
-<div class="form-group" >
-    <label class="control-label col-md-3">Pictures<span class="required">* </span> </label>
-    <div class="col-md-4">
-        <input type="file"  ng-hide="product.id" ngf-select ngf-change="upload($files)"  >
-       
-    </div>
-    <div class="col-md-4">
-   <div class="button" ngf-select ngf-change="upload($files)" ngf-multiple="multiple" multiple="true" style="cursor:pointer;">Select File</div>
- </div>
-</div>
-<div class="input_fields">  
-</div>
-
-
-      <!-- <button class="add_field_button">Add More Images</button><br>  -->
-
- <br>
-
-        <hr/>
-    </div>
-</div>
-<!-- <div class="form-group">
-    <div class="col-md-offset-12">
-        <a ng-click="addAddress()" class="btn btn-success btn-xs">+ Add address </a>
-    </div>
-</div> -->
-
-<div class="form-group">
-    <div class="pull-left">
-        <a class="btn btn-default" href="#/products"> Back</a>
-        <button type="submit" class="btn btn-primary"  ng-click="submitted=true">Submit</button>
-    </div>
-</div>
-<style type="text/css">
-    
-    .button {
-    -moz-appearance: button;
-    /* Firefox */
-    -webkit-appearance: button;
-    /* Safari and Chrome */
-    margin: 0;
-    padding: 2px;
-    width: 76px;
-}
-
-</style>
-
 <script type="text/javascript">
 
-$(document).ready(function() {
-    var max_fields      = 10; //maximum input boxes allowed
-    var wrapper         = $(".input_fields"); //Fields wrapper
-    var add_button      = $(".add_field_button"); //Add button ID
-    
-    var x = 1; //initlal text box count
-    $(add_button).click(function(e){ //on add input button click
-        e.preventDefault();
-        if(x < max_fields){ //max input box allowed
-            x++; //text box increment
-            $(wrapper).append(' <div class="form-group"> <label class="control-label col-md-3">Pictures </label><div class="col-md-4"><input type="file" name="avatars[]" class = "form-control"/><a href="#" class="remove_field">Remove</a><br></div></div>'); //add input box
-        }
+  jQuery().ready(function() {
+
+
+    //checkboxes
+    $('input.maxtickets_enable_cb').change(function(){
+		if ($(this).is(':checked'))
+    $(this).next('div.max_tickets').show();
+    else
+
+        $(this).next('div.max_tickets').hide();
+    }).change();
+
+    // validate form on keyup and submit
+
+
+    $(".open1").click(function() {
+
+        $(".frm").hide("fast");
+        $("#sf2").show("slow");
+
     });
-    
-    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent('div').parent('div .form-group').remove(); x--;
-    })
-});
+
+    $(".open2").click(function() {
+
+        $(".frm").hide("fast");
+        $("#sf3").show("slow");
+
+    });
+
+
+
+    $(".back2").click(function() {
+      $(".frm").hide("fast");
+      $("#sf1").show("slow");
+    });
+
+    $(".back3").click(function() {
+      $(".frm").hide("fast");
+      $("#sf2").show("slow");
+    });
+
+  });
 </script>
