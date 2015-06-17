@@ -12,8 +12,8 @@
 
       <div class="easyzoom easyzoom--adjacent easyzoom--with-thumbnails" >
 
-         <a   href="{{zoomImageUrl}}{{product.avatar_file_name}}">
-          <img src="{{stdImageUrl}}{{product.avatar_content_type}}"  alt=""  style="margin-top:5px;border:5px solid #ddd; width: 100%;" />  </a>
+         <a   href="{{zoomImageUrl}}{{productimages[0].original}}">
+          <img src="{{stdImageUrl}}{{productimages[0].medium}}"  alt=""  style="margin-top:5px;border:5px solid #ddd; width: 100%;" />  </a>
 
       </div>
     <!-- main image -->
@@ -23,8 +23,8 @@
 
       <!-- thubnails -->
       <div class="row thumbnails">
-           <div  class="col-sm-3 col-xs-6" ng-repeat="images in productimages | limitTo:5" ng-show="$index > 0"><a  class="thumbnail" >
-            <img  src="{{images}}" alt="Image" class="img-responsive" ng-click="setImage(productimagesoriginal[$index],images)" style="cursor:pointer;height:80px;"></a>
+           <div  class="col-sm-3 col-xs-6" ng-repeat="images in productimages | limitTo:6" ><a  class="thumbnail" >
+            <img  src="{{images.medium}}" alt="Image" class="img-responsive" ng-click="setImage(images.medium,images.original)" style="cursor:pointer;height:80px;"></a>
 
           </div>
       </div>
@@ -65,11 +65,11 @@
         <div class="product-price">{{product.cost | currency}}</div>
         <div class="product-stock">In Stock</div>
         <hr>
-        <div class="btn-group cart">
+        <!-- <div class="btn-group cart">
           <button type="button" class="btn btn-success">
             Add to cart
           </button>
-        </div>
+        </div> -->
         <div class="btn-group wishlist">
           <button type="button" class="btn btn-danger" ng-click="showreview(true)">
             Review Product
@@ -180,12 +180,12 @@
          <div class="list-group-item">
            ModelName  <label style="float:right;color:green"> {{product.ModelName}}</label>
         </div>
-         <div class="list-group-item">
-           TouchScreen  <label style="float:right;color:green"> {{product.TouchScreen}}</label>
+         <div class="list-group-item" ng-show="product.TouchScreen">
+           TouchScreen  <label style="float:right;color:green"> Yes </label>
         </div>
         <a  class="list-group-item active">Multimedia</a>
-        <div class="list-group-item">
-          VideoPlayer <label style="float:right;color:green"> {{product.VideoPlayer}}</label>
+        <div class="list-group-item" ng-show="product.VideoPlayer">
+          VideoPlayer <label style="float:right;color:green"> Yes </label>
         </div>
         <div class="list-group-item">
           PrimaryCamera  <label style="float:right;color:green"> {{product.PrimaryCamera}}</label>
@@ -211,6 +211,11 @@
          <div class="list-group-item">
            Dimension  <label style="float:right;color:green"> {{product.Dimension}}</label>
         </div>
+        <a  class="list-group-item active">Others</a>
+         <div class="list-group-item">
+           Warranty  <label style="float:right;color:green"> {{product.Warranty}}.</label>
+        </div>
+
       </div>
     </div>
 

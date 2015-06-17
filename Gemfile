@@ -21,6 +21,7 @@ gem 'owlcarousel-rails'
 gem 'bootbox-rails'
 gem 'angular_rails_csrf'
 gem 'ratyrate'
+gem 'angularjs-file-upload-rails'
 
 source "https://rails-assets.org" do
   gem "rails-assets-angular-devise"

@@ -5,9 +5,11 @@ class ProductsController < ApplicationController
   def index
     @products = Product.order("avgrate DESC")
     @products = Product.order("avgrate DESC").paginate(:page => params[:page], :per_page => 6) if params[:page].present?
+     if params[:page].present?
      @products.each do |product|
-      product[:avatar_content_type] = product.avatar.url(:medium)
-      product[:avatar_file_name] = product.avatar.url(:thumb)
+      image = ProductPictures.where(:product_id => product.id).first
+      product[:avatar_content_type] = image.avatar.url(:medium) if image.present?
+    end
     end
     respond_with(@products) do |format|
       format.json { render :json => @products.as_json }
@@ -27,43 +29,36 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @product[:avatar_content_type] = @product.avatar.url(:medium)
-    @product[:avatar_file_name] = @product.avatar.url
+  #@product[:avatar_content_type] = @product.avatar.url(:medium)
+    #@product[:avatar_file_name] = @product.avatar.url
    # respond_with(@product.as_json)
     respond_with(@product.as_json)
   end
 
-  def image_show
-    @product = Product.find(params[:id])
-    length = ProductPictures.where(:product_id => @product.id).count
-    images = ProductPictures.where(:product_id => @product.id)
-    data = [];
-    if length >
-      i=1
-      images.each do |image|
-        data[i] =  image.avatar.url(:medium)
-        i +=1
-      end
+
+
+
+    def getproductimages
+      @product = Product.find(params[:id])
+      length = ProductPictures.where(:product_id => @product.id).count
+      images = ProductPictures.where(:product_id => @product.id)
+      data = Hash.new;
+
+        images.each do |image|
+          data[image.id] =  Hash.new;
+          data[image.id][:id] =  image.id
+          data[image.id][:thumb] =  image.avatar.url(:medium)
+          data[image.id][:medium] =  image.avatar.url(:medium)
+          data[image.id][:original] =  image.avatar.url
+        end
+     render json: data.as_json, status: :ok
+      #respond_with(data.as_json), status: :ok
+
     end
-    respond_with(data.as_json)
 
-  end
 
-  def originalimage_show
-    @product = Product.find(params[:id])
-    length = ProductPictures.where(:product_id => @product.id).count
-    images = ProductPictures.where(:product_id => @product.id)
-    data = [];
-    if length >
-      i=1
-      images.each do |image|
-        data[i] =  image.avatar.url
-        i +=1
-      end
-    end
-    respond_with(data.as_json)
 
-  end
+
 
   def update
   	@product = Product.find(params[:id])
@@ -76,15 +71,27 @@ class ProductsController < ApplicationController
 
   def destroy
   	@product = Product.find(params[:id])
-    @product.destroy
+    images = ProductPictures.where(:product_id => @product.id)
+    if @product.destroy
+      images.each do |image|
+        @image = ProductPictures.find_by_id(image.id)
+        @image.destroy if @image
+      end
+   end
     render json: {status: :ok}
   end
 
   def upload_images
     @product = Product.find(params[:id])
-    product_picture = ProductPictures.create(:avatar => params[:avatar])
+    product_picture = ProductPictures.create(:avatar => params[:product][:avatar])
     product_picture[:product_id] = @product.id
     product_picture.save
+    render json: {status: :ok}
+  end
+
+  def delimage
+    @image = ProductPictures.find_by_id(params[:id])
+    @image.destroy if @image
     render json: {status: :ok}
   end
 

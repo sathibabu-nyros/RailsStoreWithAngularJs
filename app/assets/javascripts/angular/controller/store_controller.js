@@ -1,10 +1,10 @@
 //Factory
-myApp.factory('Products', ['$resource',function($resource){
-  return $resource('/products.json', {},{
-    query: { method: 'GET', isArray: true },
-    create: { method: 'POST' }
-  })
-}]);
+// myApp.factory('Products', ['$resource',function($resource){
+//   return $resource('/products.json', {},{
+//     query: { method: 'GET', isArray: true },
+//     create: { method: 'POST' }
+//   })
+// }]);
 
 myApp.factory('UserLogin', ['Auth',function(Auth){
   return {
@@ -27,13 +27,7 @@ myApp.factory('UserLogin', ['Auth',function(Auth){
 
 }]);
 
-// myApp.factory('Product', ['$resource', function($resource){
-//   return $resource('/products/:id.json', {}, {
-//     show: { method: 'GET' },
-//     update: { method: 'PUT', params: {id: '@id'} },
-//     delete: { method: 'DELETE', params: {id: '@id'} }
-//   });
-// }]);
+
 
 //Controller
 myApp.controller("StoreListCtr", ['$scope', '$http', '$resource', 'Products', 'Product', '$location','$timeout','Auth','UserLogin', function($scope, $http, $resource, Products, Product, $location,$timeout,Auth,UserLogin) {
@@ -232,22 +226,15 @@ myApp.controller("StoreShowCtr", ['$window', '$scope', '$resource', 'Product', '
 
    $scope.stdImageUrl = '';
    $scope.productimages = [];
-   $scope.productimagesoriginal = [];
-   $scope.productimages = [];
 
-   $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
+
+   $http.get('/products/'+$routeParams.id+'/getproductimages.json').success(function (data) {
                 $scope.totalItems=data.length;
                 angular.forEach(data,function (key) {
                     $scope.productimages.push(key);
                 });
               });
 
-    $http.get('/products/'+$routeParams.id+'/originalimage_show.json').success(function (data) {
-                $scope.totalItems=data.length;
-                angular.forEach(data,function (key) {
-                    $scope.productimagesoriginal.push(key);
-                });
-              });
 
      $http.get("/products.json?").success(function (data) {
                 $scope.totalItems=data.length;
@@ -261,8 +248,8 @@ myApp.controller("StoreShowCtr", ['$window', '$scope', '$resource', 'Product', '
     //$('#mainimg').attr('src','');
     //$scope.mainImageUrl = imageUrl;
    $scope.product.show = true;
-   $scope.stdImageUrl = image;
-   $scope.zoomImageUrl = images;
+   $scope.stdImageUrl = images;
+   $scope.zoomImageUrl = image;
    //$scope.zoomImageUrl = 'localhost/images/products/zoom_'+ id +'.jpg';
 
 
@@ -290,45 +277,13 @@ myApp.controller("StoreShowCtr", ['$window', '$scope', '$resource', 'Product', '
         };
 
 
-          // $scope.getSelectedRating = function (rating) {
-          //     //console.log(rating);
-          //
-          //
-          //     //
-          //     $http.post('/rate', {score:rating, dimension:'price', id:$routeParams.id, klass:'Product'}).
-          //           success(function(data, status, headers, config) {
-          //             // this callback will be called asynchronously
-          //             // when the response is available
-          //
-          //             if(data == false)
-          //             {
-          //               alert('You need to sign in or sign up before continuing.');
-          //                $scope.ratings = [{
-          //                   current: 1,
-          //                   max: 5
-          //               }];
-          //             }
-          //           }).
-          //           error(function(data, status, headers, config) {
-          //
-          //           });
-          //
-          //
-          // }
+
 
 
 
 }]);
 
-// myApp.directive('ngElevateZoom', function() {
-//   return {
-//     restrict: 'A',
-//     scope: true,
-//     compile: function(scope, element, attrs) {
-//       $(element).elevateZoom(scope.$eval(attrs.elevateZoom));
-//     }
-//   };
-// });
+
 
 myApp.directive('whenScrolled', function($window) {
     return function(scope, elm, attr) {
@@ -355,19 +310,7 @@ myApp.directive('whenScrolled', function($window) {
   };
 });
 
-// myApp.directive('hiddenRepeat',function($parse){
-//   return {
-//     link: function(scope, elem, attr){
-//       var data = $parse(attr.hiddenRepeat)(scope);
-//       if(data){
-//         for (var i=0;i< data.length;i++){
-//        elem.append('<div><img u="image" src="{{product.avatar_content_type}}" /></div>');
 
-//         }
-//       }
-//     }
-//   };
-// });
 
 myApp.controller('ModalInstanceCtrl', function ($scope) {
 

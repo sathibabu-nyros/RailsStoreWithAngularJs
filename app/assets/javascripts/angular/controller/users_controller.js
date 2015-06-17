@@ -68,6 +68,8 @@ myApp.controller("UserRegisterCtr", ['$scope', 'Auth','$location', function($sco
             alert('Email Alerdy Taken...');
           }else if(error.data.errors.password_confirmation){
           alert(error.data.errors.password_confirmation);
+          }else if(error.data.errors.password){
+          alert('is too short (minimum is 8 characters)');
           }
 
 

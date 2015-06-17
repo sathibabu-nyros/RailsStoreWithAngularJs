@@ -1,4 +1,4 @@
-var myApp = angular.module('myapplication', ['ngRoute', 'ngResource','uiSlider','ngFileUpload','Devise','ui.bootstrap']);
+var myApp = angular.module('myapplication', ['ngRoute', 'ngResource','uiSlider','ngFileUpload','Devise','ui.bootstrap','angularFileUpload']);
 
 //Routes
 myApp.config([
@@ -25,6 +25,10 @@ myApp.config([
     });
     $routeProvider.when('/products/:id/edit', {
       templateUrl: '/templates/products/edit.html',
+      controller: "ProductUpdateCtr"
+    });
+    $routeProvider.when('/products/:id/upload', {
+      templateUrl: '/templates/products/upload.html',
       controller: "ProductUpdateCtr"
     });
     $routeProvider.when('/store',{

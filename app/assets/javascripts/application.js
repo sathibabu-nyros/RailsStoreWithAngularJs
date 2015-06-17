@@ -14,7 +14,7 @@
 //= require angular
 //= require angular-animate
 //= require angular-route
-
+//= require angularjs-file-upload
 //= require angular-resource
 //= require angular-devise
 //= require angular/ui-bootstrap-tpls
@@ -22,4 +22,3 @@
 //= require jquery.raty
 //= require ratyrate
 //= require_tree .
-

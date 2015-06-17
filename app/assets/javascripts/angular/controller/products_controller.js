@@ -15,7 +15,7 @@ myApp.factory('Product', ['$resource', function($resource){
 }]);
 
 //Controller
-myApp.controller("ProductListCtr", ['$scope', '$http', '$resource', 'Products', 'Product', '$location', function($scope, $http, $resource, Products, Product, $location) {
+myApp.controller("ProductListCtr", ['FileUploader', '$scope', '$http', '$resource', 'Products', 'Product', '$location', function(FileUploader,$scope, $http, $resource, Products, Product, $location) {
 
   $scope.products = Products.query();
 
@@ -29,78 +29,70 @@ myApp.controller("ProductListCtr", ['$scope', '$http', '$resource', 'Products', 
   };
 }]);
 
-myApp.controller("ProductUpdateCtr", ['$scope', '$resource', 'Product', '$location', '$routeParams','Upload','$http', function($scope, $resource, Product, $location, $routeParams, Upload,$http) {
+myApp.controller("ProductUpdateCtr", ['$window', 'FileUploader', '$scope', '$resource', 'Product', '$location', '$routeParams','Upload','$http', function($window,FileUploader,$scope, $resource, Product, $location, $routeParams, Upload,$http) {
 
   $scope.product = Product.get({id: $routeParams.id})
   //load product images
   $scope.productimages = [];
 
-   $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
+   $http.get('/products/'+$routeParams.id+'/getproductimages.json').success(function (data) {
                 $scope.totalItems=data.length;
                 angular.forEach(data,function (key) {
                     $scope.productimages.push(key);
                 });
                   });
 
-  // $scope.update = function(){
-  //   if ($scope.productForm.$valid){
-  //     Product.update({id: $scope.product.id},{product: $scope.product},function(){
-  //       $location.path('/products');
-  //     }, function(error) {
-  //       console.log(error)
-  //     });
-  //   }
-  // };
+  $scope.update = function(){
+    if ($scope.productForm.$valid){
+      Product.update({id: $scope.product.id,product: $scope.product},function(){
+        $location.path('/products');
+      }, function(error) {
+        console.log(error)
+      });
+    }
+  };
 
- // $scope.upload = function (files) {
- //
- //   alert(files);
- //        if (files && files.length) {
- //            for (var i = 0; i < 1; i++) {
- //                var file = files[i];
- //                Upload.upload({
- //                    method: 'PUT',
- //                    url: '/products/'+$routeParams.id+'/upload_images/',
- //                    file: file,
- //                    fileFormDataName: 'avatar'
- //                });
- //            }
- //            $location.path('/products/'+$routeParams.id+'/edit');
- //            $scope.productimages = [];
- //
- //          $http.get('/products/'+$routeParams.id+'/image_show.json').success(function (data) {
- //                      $scope.totalItems=data.length;
- //                      angular.forEach(data,function (key) {
- //                          $scope.productimages.push(key);
- //                      });
- //                    });
- //        }
- //
- //    };
+  $scope.upload = function (files) {
+     if (files && files.length) {
+         for (var i = 0; i < files.length; i++) {
+             var file = files[i];
+             Upload.upload({
+                 method: 'PUT',
+                 url: '/products/'+$routeParams.id+'/upload_images/',
+                 file: file,
+                 fileFormDataName: 'product[avatar]'
+             });
+         }
+     }
+     $window.location.reload();
+     $location.path('/products/'+$routeParams.id+'/upload');
+ };
 
+ $scope.deleteImage = function (ImageId) {
+   if (confirm("Are you sure you want to delete this image?")){
+     $http({
+             method: 'POST',
+             url: '/delimage',
+             data: { id: ImageId }
+             }).
+             success(function (data, status, headers, config) {
+             //alert("success!");
+             $window.location.reload();
+             $location.path('/products/'+$routeParams.id+'/upload');
+             }).
+             error(function (data, status, headers, config) {
+             //alert("failed!");
+             });
 
-    $scope.update = function () {
-
-
-               Upload.upload({
-                   method: 'PUT',
-                   url: '/products/'+$routeParams.id+'.json',
-                    fields: { 'product[name]': $scope.product.name,
-                              'product[cost]': $scope.product.cost,
-                              'product[brand]': $scope.product.brand,
-                              'product[description]': $scope.product.description
-                            },
-                   file: $scope.product.file,
-                   fileFormDataName: 'product[avatar]'
-               });
+   }
+ };
 
 
-   };
 
 
 }]);
 
-myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location','Upload','$http', function($scope, $resource, Products,  $location, Upload, $http) {
+myApp.controller("ProductAddCtr", ['FileUploader', '$scope', '$resource', 'Products', '$location','Upload','$http', function(FileUploader,$scope, $resource, Products,  $location, Upload, $http) {
  // $scope.avatars = {};
   $scope.product = {};
 
@@ -116,38 +108,10 @@ myApp.controller("ProductAddCtr", ['$scope', '$resource', 'Products', '$location
     }
 
 
-    // for (var i = 0; i < picFiles.length; i++) {
-    //     var file = picFiles[i];
-    //     $scope.upload = Upload.upload({
-    //         url: '/products.json',
-    //         method: 'POST',
-    //         file: file,
-    //         fileFormDataName: 'user[image]'
-    //     });
-    // }
 
 
   };
 
 
-
-
-     $scope.upload = function (files) {
-        if (files && files.length) {
-            for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                Upload.upload({
-                    url: '/products',
-                     fields: { 'product[name]': $scope.product.name,
-                               'product[cost]': $scope.product.cost,
-                               'product[brand]': $scope.product.brand,
-                               'product[description]': $scope.product.description
-                             },
-                    file: file,
-                    fileFormDataName: 'product[avatar]'
-                });
-            }
-        }
-    };
-
+    
 }]);

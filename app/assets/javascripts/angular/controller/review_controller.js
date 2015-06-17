@@ -4,6 +4,7 @@
 myApp.controller("ReviewShowCtr", ['$window', '$scope', '$resource', 'Product', 'Products', '$location', '$routeParams','$http','Auth', function($window,$scope, $resource, Product, Products,$location, $routeParams, $http,Auth) {
 
   $scope.productreviews = [];
+  $scope.product = Product.get({id: $routeParams.id})
 
   $http.post('/get_allreviews',{id:$routeParams.id,page:1}).success(function (data) {
                angular.forEach(data,function (key) {

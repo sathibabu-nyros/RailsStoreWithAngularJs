@@ -1,0 +1,90 @@
+<div class="container">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Upload Files</strong> <a href="#products" style="float:right">Back To List</a></div>
+        <div class="panel-body">
+
+          <!-- Standar Form -->
+          <h4>Select files from your computer</h4>
+          <form  enctype="multipart/form-data" name="imageForm" >
+            <div class="form-inline">
+              <div class="form-group">
+                <input type="file" ngf-select ng-model="picFile" class="file" name="file" ngf-multiple="true" accept="image/*" required>
+
+
+              </div>
+              <button ng-click="upload(picFile)" type="submit" class="btn btn-sm btn-primary" id="js-upload-submit" ng-click="upload(picFile)">Upload files</button>
+            </div>
+          </form>
+
+          <!-- Drop Zone -->
+          <h4>Images Preview</h4>
+          <div class="upload-drop-zone" id="drop-zone">
+
+
+
+               <!-- thubnails -->
+               <div class="row thumbnails">
+
+                 <div ng-repeat="f in picFile" ><img ng-show="f.type.indexOf('image') > -1" ngf-src="f" alt="Image"class="img-responsive" style="width:150px;height:150px;float:left;padding:2px;margin:5px;"></div>
+                   </div>
+               </div>
+             </div>
+             <!-- thubnails -->
+
+          </div>
+
+
+          <!-- Drop Zone -->
+          <h4>Previous Images Preview</h4>
+          <div class="upload-drop-zone" id="drop-zone">
+
+
+
+            <!-- thubnails -->
+
+
+
+                 <div  ng-repeat="images in productimages"   style="width:150px;height:150px;float:left;">
+
+                  <img  style="width:120px;height:120px;" src="{{images.thumb}}" alt="Image" class="img-responsive">
+                  <a href="" ng-click="deleteImage(images.id)">Remove</a>
+                </div>
+
+
+
+        <!-- thubnails -->
+
+          </div>
+
+
+
+          <!-- Upload Finished -->
+
+        </div>
+      </div>
+    </div> <!-- /container -->
+
+
+    <style>
+    /* layout.css Style */
+.upload-drop-zone {
+  min-height: 200px!important;
+  border-width: 2px;
+  margin-bottom: 20px;
+}
+
+/* skin.css Style*/
+.upload-drop-zone {
+  color: #ccc;
+  border-style: dashed;
+  border-color: #ccc;
+  line-height: 200px;
+  text-align: center
+}
+.upload-drop-zone.drop {
+  color: #222;
+  border-color: #222;
+}
+
+
+    </style>

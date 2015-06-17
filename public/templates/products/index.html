@@ -1,14 +1,14 @@
 <br/>
 <div class="row">
     <div class="col-md-12">
-        <a class="btn btn-primary" href="#/products/new">Create a Products</a>
+        <a class="btn btn-primary" href="#/products/new">Create a Product</a>
         <h3 class="block">Products</h3>
         <table class="table table-striped">
             <tr>
                 <th>Name</th>
                 <th>Brand</th>
                 <th>Cost</th>
-                <th>Description</th>
+
                 <th></th>
             </tr>
             <tr ng-hide="products.length" >
@@ -18,9 +18,9 @@
                 <td>{{product.name}}</td>
                 <td>{{product.brand}}</td>
                 <td>{{product.cost}}</td>
-                <td>{{product.description}}</td>
+
                 <td>
-                    <a href="#/products/{{product.id}}/edit">Edit</a> | <a href="" ng-click="deleteProduct(product.id)">Remove</a>
+                  <a href="#/products/{{product.id}}/upload">Images</a> | <a href="#/products/{{product.id}}/edit">Edit</a> | <a href="" ng-click="deleteProduct(product.id)">Remove</a>
                 </td>
             </tr>
         </table>

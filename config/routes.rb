@@ -17,11 +17,12 @@ Rails.application.routes.draw do
    match '/products/:id/upload_images/' => 'products#upload_images',  via: [:put]
    match '/products/:id/image_show/' => 'products#image_show',  via: [:get]
    match '/products/:id/originalimage_show/' => 'products#originalimage_show',  via: [:get]
-
+   match '/products/:id/getproductimages/' => 'products#getproductimages',  via: [:get]
 
    match '/getuser_rate' => 'rater#getuser_rate',  via: [:post]
    match '/get_reviews' => 'rater#get_reviews',  via: [:post]
    match '/get_allreviews' => 'rater#get_allreviews',  via: [:post]
+   match '/delimage' => 'products#delimage',  via: [:post]
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 

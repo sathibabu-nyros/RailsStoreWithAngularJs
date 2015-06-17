@@ -214,21 +214,12 @@
               <p ng-show="productForm.description.$error.required" class="help-block"> is required.</p>
             </div>
             <div class="clearfix" style="height: 10px;clear: both;"></div>
-            <div class="form-group">
-              <label class="col-lg-2 control-label" for="uname">Description </label>
-              <div class="col-lg-6">
-                <input type="file" name="file" ng-model="product.file" />
 
-              </div>
-              <p ng-show="productForm.description.$error.required" class="help-block"> is required.</p>
-            </div>
-            <div class="clearfix" style="height: 10px;clear: both;"></div>
-
-
+   <div class="clearfix" style="height: 10px;clear: both;"></div>
             <div class="form-group">
               <div class="col-lg-10 col-lg-offset-2">
                 <button class="btn btn-warning back3" type="button"><span class="fa fa-arrow-left"></span> Back</button>
-                <button class="btn btn-primary" type="submit"  ng-disabled="productForm.$invalid">Submit </button>
+                <button class="btn btn-primary" type="submit"  ng-disabled="productForm.$invalid" >Submit </button>
 
               </div>
 
@@ -286,3 +277,41 @@
 
   });
 </script>
+
+<style>
+.thumb {
+	float: left;
+	width: 25px;
+	height: 25px;
+	padding-right: 10px;
+}
+
+form .thumb {
+	width: 50px;
+	height: 50px;
+	float: none;
+	position: relative;
+	top: 7px;
+}
+.response {
+	padding: 0;
+	padding-top: 10px;
+	margin: 3px 0;
+	clear: both;
+}
+
+.response .sel-file li, .response .reqh {
+	color: blue;
+	padding-bottom: 5px;
+}
+
+.sel-file {
+	padding: 1px 5px;
+	font-size: smaller;
+	color: grey;
+  list-style-type: none;
+  display: inline;
+}
+
+
+</style>
