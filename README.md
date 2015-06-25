@@ -1,6 +1,6 @@
 <h3>Rails4 + AngularJS </h3>
 
-Check demo app <a href="https://railsstore-with-angulajs.herokuapp.com/">here</a>.
+Check demo app <a href="https://railsstore-with-angularjs.herokuapp.com/">here</a>.
 
 1. CRUD example using Rails4 + AngularJS
  
